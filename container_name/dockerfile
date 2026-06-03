@@ -1,0 +1,46 @@
+# Use an official base image relevant to your software (e.g., Python, R, Ubuntu)
+FROM python:3.9-slim
+
+# Maintainer information
+LABEL maintainer="your.email@example.com"
+LABEL version="1.0"
+LABEL description="A Python tool for data analysis."
+LABEL image.source="https://github.com/EUCAIM/software-template-repository"
+LABEL image.revision="commit-sha"
+LABEL image.version="tag-or-version"
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+
+# Create non-root user and group, and prevent login
+RUN groupadd -g $USER_GID eucaim && \
+    useradd -r -u $USER_UGID -g eucaim -d /home/eucaim -m -s /usr/sbin/nologin eucaim
+
+# Install any necessary dependencies of your tool
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory (placeholder, overridden at runtime)
+WORKDIR /app
+
+# Copy the tool code into the container
+COPY ./app/ /app/
+COPY ./entrypoint.sh /app/entrypoint.sh
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+####### Switch to non-root user  ############
+
+# Set any necessary executable permissions for non-root user
+RUN chmod +x /app/entrypoint.sh
+
+ENTRYPOINT ["/app/entrypoint.sh"]
+
+# Default command (can be overridden by the platform at runtime)
+CMD ["python", "script.py"]
+
+
