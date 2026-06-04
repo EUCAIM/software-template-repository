@@ -19,6 +19,7 @@ The platform requires containers to:
 ```text
 software-template-repository/
 ├── README.md
+├── LICENSE
 ├── docs/
 │   └── ...
 └── container_name/
@@ -38,6 +39,7 @@ software-template-repository/
 | File                           | Description                                                                                                 |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------- |
 | `README.md`                    | Template documentation and usage instructions.                                                              |
+| `LICENSE`                      | License terms and conditions governing the use, distribution, and modification of this project.                                                              |
 | `docs/`                        | Optional documentation for your application.                                                                |
 | `container_name/dockerfile`    | Reference Dockerfile to build your application image.                                                       |
 | `container_name/entrypoint.sh` | Platform-managed startup script. Performs runtime user configuration and launches the application securely. |
