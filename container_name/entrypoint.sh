@@ -2,9 +2,9 @@
 set -e
 
 # Environment variables from docker-compose
-HOST_UID=${UID}
-HOST_GID=${GID}
-HOST_USER=${USER_NAME}
+HOST_UID=${HOST_UID:-1000}
+HOST_GID=${HOST_GID:-1000}
+HOST_USER=${HOST_USER:-eucaim}
 
 echo "Configuring container user: $HOST_USER ($HOST_UID:$HOST_GID)"
 
