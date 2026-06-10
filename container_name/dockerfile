@@ -12,13 +12,17 @@ LABEL image.version="tag-or-version"
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 
+# Set defaults for build arguments
+ARG USER_UID=1000
+ARG USER_GID=1000
+
 # Create non-root user and group, and prevent login
 RUN groupadd -g $USER_GID eucaim && \
-    useradd -r -u $USER_UGID -g eucaim -d /home/eucaim -m -s /usr/sbin/nologin eucaim
+    useradd -r -u $USER_UID -g eucaim -d /home/eucaim -m -s /usr/sbin/nologin eucaim
 
 # Install any necessary dependencies of your tool
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y gosu \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
