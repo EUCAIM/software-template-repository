@@ -22,7 +22,7 @@ RUN groupadd -g $USER_GID eucaim && \
 
 # Install any necessary dependencies of your tool
 RUN apt-get update && \
-    apt-get install -y gosu \
+    apt-get install -y --no-install-recommends gosu \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
