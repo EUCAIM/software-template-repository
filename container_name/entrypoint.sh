@@ -51,9 +51,8 @@ else
 fi
 
 # -------------------------
-# 3. Fix ownership of /app and /sandbox
+# 3. Fix ownership of /sandbox
 # -------------------------
-chown -R "$HOST_UID:$HOST_GID" /app
 chown -R "$HOST_UID:$HOST_GID" /sandbox || true
 
 # -------------------------
