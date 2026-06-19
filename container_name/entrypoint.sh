@@ -56,7 +56,7 @@ fi
 chown -R "$HOST_UID:$HOST_GID" /sandbox || true
 
 # -------------------------
-# 4. Switch to host user and run receiver.py
+# 4. Switch to host user and run script.py
 # -------------------------
 
 # Default command if none supplied
