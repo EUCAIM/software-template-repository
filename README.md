@@ -130,7 +130,7 @@ RUN apt-get update && \
 COPY entrypoint.sh /app/entrypoint.sh
 COPY app/ /app/
 
-RUN chmod +x /app/entrypoint.sh
+RUN chown -R root:root /app && chmod 755 /app/main.py /app/entrypoint.sh
 
 ENTRYPOINT ["/app/entrypoint.sh"]
 
