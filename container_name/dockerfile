@@ -36,11 +36,8 @@ COPY ./entrypoint.sh /app/entrypoint.sh
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-
-####### Switch to non-root user  ############
-
 # Set any necessary executable permissions for non-root user
-RUN chmod +x /app/entrypoint.sh
+RUN chown -R root:root /app && chmod 755 /app/main.py /app/entrypoint.sh
 
 ENTRYPOINT ["/app/entrypoint.sh"]
 
