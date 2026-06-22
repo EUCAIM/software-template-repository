@@ -1,309 +1,98 @@
-# Software Container Template
+# Contributing a tool to EUCAIM
 
-This repository provides a reference template for software providers who want to package their applications as Docker containers compatible with the EUCAIM runtime environment.
-
-**For more details check the [EUCAIM Software Packaging Guide v1.4](#)**
-
-The platform requires containers to:
-
-* Run applications as a non-root user.
-* Support dynamic UID/GID assignment at runtime.
-* Preserve platform security controls implemented in the provided entrypoint.
-* Allow application-specific startup commands through Docker `CMD`.
-* Read node's data from a infra-specific path
-* Write application's output in a infra-specific path
-
-
-## Repository Structure
+Tool providers contribute by submitting Pull Requests containing a new tool directory under
 
 ```text
-software-template-repository/
-├── README.md
-├── LICENSE
-├── docs/
-│   └── ...
-└── container_name/
-    ├── dockerfile
-    ├── entrypoint.sh
-    └── app/
-        └── <application files>
-    └── test/ 
-        ├── example_dataset/ 
-        │   └── <sample input data>
-        └── results/
-            	└── <expected output files>
+toolbox/
 ```
 
-#### Files
+This template helps tool providers to create the three parts that are compulsory to make available a new software tool in EUCAIM federated compute platform:
+1) All container images registered in EUCAIM Harbor
+2) Metadata describing how EUCAIM platform can run the new tool
+3) Test dataset to validate the integration
+4) Tool Documentation 
+ 
 
-| File                           | Description                                                                                                 |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------- |
-| `README.md`                    | Template documentation and usage instructions.                                                              |
-| `LICENSE`                      | License terms and conditions governing the use, distribution, and modification of this project.                                                              |
-| `docs/`                        | Optional documentation for your application.                                                                |
-| `container_name/dockerfile`    | Reference Dockerfile to build your application image.                                                       |
-| `container_name/entrypoint.sh` | Platform-managed startup script. Performs runtime user configuration and launches the application securely. |
-| `container_name/app/`          | Place your application source code, binaries, scripts, and assets here.                                     |
+As explained in the [main README file](README.md), the easiest approach is to start forking the whole repository, copying `tool_template/` and renaming it to your own tool name `toolbox/<tool_name>`. 
 
-
-## Important Requirements
-
-#### Do Not Modify `entrypoint.sh`
-
-The provided `entrypoint.sh` is responsible for:
-
-* Creating or updating the runtime user.
-* Mapping host UID and GID values.
-* Fixing file ownership where required.
-* Dropping root privileges.
-* Launching the application as a non-root user.
-
-The platform relies on this behavior for security and compatibility.
-
-Application providers should not replace or bypass this script.
-
-
-## How Application Startup Works
-
-The template uses the following pattern:
-
-```dockerfile
-ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["python3", "/app/main.py"]
-```
-
-At container startup:
-
-1. `entrypoint.sh` executes first.
-2. Runtime UID/GID mappings are applied.
-3. A non-root user is configured.
-4. The command specified by `CMD` is executed using `gosu`.
-
-Example:
-
-```dockerfile
-CMD ["python3", "/app/script.py"]
-```
-
-Results in:
-
-```bash
-gosu application-user python3 /app/script.py
-```
-
-
-## Creating Your Application Container
-
-### Step 1: Copy Your Application
-
-Place your application files inside:
+### Template structure
 
 ```text
-container_name/app/
+├── tool_template/
+│   ├── README.md
+│   ├── LICENSE
+│   ├── task_containers/
+│   │   ├── container_name_task-A
+|   │   │   ├── dockerfile
+|   │   │   ├── app/
+|   │   │   └── entrypoint.sh
+│   │   ├── another_task_cotainer
+│   │   └── ...
+│   ├── metadata/
+│   │   ├── FEM/
+|   │   │   ├── tool_bundle.cwl
+│   │   │   └── ...
+│   │   └── jobman/
+│   ├── docs/
+│   └── test/
+│       └── example_input/
+│       └── example_output/
 ```
 
-Example:
 
-```text
-container_name/
-├── dockerfile
-├── entrypoint.sh
-└── app/
-    ├── server.py
-    ├── requirements.txt
-    └── models/
-└── test/
-```
+# How to prepare task container images
+A EUCAIM tools consists on a set of containers executed .... that corresponds to tasks
 
-### Step 2: Install Dependencies
+Tool providers are free to build images using their own CI/CD pipelines. Dockerfiles do not need to be shared. Images should however be built using the supplied `entrypoint.sh` mechanism so that execution inside EUCAIM infrastructures remains compatible.
 
-Modify the Dockerfile to install your application's dependencies.
+*TODO: Merge in here the old README content*
 
-Example:
+# How to prepare test datasets
 
-```dockerfile
-FROM ubuntu:24.04
-
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip gosu
-
-COPY entrypoint.sh /app/entrypoint.sh
-COPY app/ /app/
-
-RUN chown -R root:root /app && chmod 755 /app/main.py /app/entrypoint.sh
-
-ENTRYPOINT ["/app/entrypoint.sh"]
-
-CMD ["python3", "/app/server.py"]
-```
-
-### Step 3: Define Your Startup Command
-
-Specify how your application should start using `CMD`.
-
-Examples:
-
-##### Python application
-```dockerfile
-CMD ["python3", "/app/server.py"]
-```
-##### Node.js application
-```dockerfile
-CMD ["node", "/app/index.js"]
-```
-##### Java application
-```dockerfile
-CMD ["java", "-jar", "/app/application.jar"]
-```
-##### Custom executable
-```dockerfile
-CMD ["/app/bin/my-service"]
-```
-
-The platform injects runtime values used by the entrypoint:
-
-| Variable    | Description                                           |
-| ----------- | ----------------------------------------------------- |
-| `HOST_UID`  | User ID that should own and execute the application.  |
-| `HOST_GID`  | Group ID that should own and execute the application. |
-| `HOST_USER` | Runtime username created inside the container.        |
-
-These values are managed automatically by the platform and should not be hardcoded.
-
-
-### Step 4: Building the Docker Image
-
-From the `container_name` directory:
-
-```bash
-docker build -t my-application:v1.0 .
-```
-
-Verify that the image was created successfully:
-
-```bash
-docker images | grep my-application
-```
-
-Expected output:
-
-```text
-my-application   latest   <IMAGE_ID>   <DATE>   <SIZE>
-```
-
-### Step 5: Testing the Image
-
-Each application submission must include a representative test dataset and the corresponding expected results.
+At minimum contributors shall provide
 
 ```text
 test/
-├── example_dataset/
-│   ├── sample1.dat
-│   ├── sample2.dat
-│   └── config.json
-└── results/
-    ├── sample1_output.json
-    ├── sample2_output.json
-    └── summary.csv
+├── example_input/
+└── example_output/
 ```
 
-The test dataset should:
+Input datasets shall correspond to the minimal dataset required by the tool and follow
 
-* Be small enough to execute quickly.
-* Exercise the primary functionality of the application.
-* Produce deterministic outputs.
-* Not contain confidential or proprietary information.
+* EUCAIM Common Data Model
+* EUCAIM file-system conventions
 
+Expected outputs shall be deterministic whenever possible.
 
-Application providers must demonstrate that the image can execute successfully against the supplied test dataset.
-
-Assume:
-
-* Input data is located in `test/example_dataset`
-* Output files are written to `test/output`
-* Expected outputs are stored in `test/results`
-
-Create a temporary output directory:
-
-```bash
-mkdir -p test/output
-```
-
-Run the container:
-
-```bash
-docker run --rm \
-  -e HOST_UID=$(id -u) \
-  -e HOST_GID=$(id -g) \
-  -e HOST_USER=$(whoami) \
-  -v $(pwd)/test/example_dataset:/data:ro \
-  -v $(pwd)/test/output:/sandbox \
-  my-application:v1.0    \
-  python3 /app/script.py --input /data/input  --output /sandbox/output
-```
-
-The application should process the files in:
+If outputs are non deterministic,
 
 ```text
-/data/input
+test/example_output/description.md
 ```
 
-and generate outputs in:
+shall explain which properties should be checked during integration testing.
+
+Providing expected execution logs is recommended.
+
+# How to prepare Metadata
+
+Metadata shall contain the information required for execution within EUCAIM compute infrastructures.
+
+Particular focus is placed on execution through FEM.
+
+Contributors shall provide
 
 ```text
-/sandbox/output
+metadata/FEM/
 ```
 
-#### Validating Results
+including
 
-Compare the generated output with the expected results:
+* CWL descriptions for each task
+* a workflow CWL describing the complete tool execution
+* `bundle.cwl` defining the overall workflow
 
-```bash
-diff -r test/output test/results
-```
+Additional metadata formats may be added in the future.
 
-No output indicates that the generated files match the expected results.
-
-Alternatively:
-
-```bash
-diff -rq test/output test/results
-```
-
-Expected output:
-
-```text
-(no differences reported)
-```
-
-The platform entrypoint will still execute first and will then launch the specified command as the configured non-root user.
-
-## Support
-
-If your application cannot run correctly within this template, provide the following information when contacting EUCAIM to (support@eucaim)[support_eucaim@example]:
-
-* Dockerfile
-* Application startup command (`CMD`)
-* Container logs
-* Dependency requirements
-* Test dataset description
-* Expected output description
-
-This information will help validate compatibility with the platform runtime environment.
-
-## Security Guidelines
-
-Applications should:
-
-* Avoid requiring root privileges.
-* Store writable data in designated application directories.
-* Use relative paths where possible.
-* Handle termination signals correctly (`SIGTERM`, `SIGINT`).
-* Write logs to stdout/stderr.
-
-Applications should not:
-
-* Modify `/etc/passwd` or `/etc/group`.
-* Replace the provided entrypoint.
-* Attempt privilege escalation.
+# How to prepare the Tool documentation
 
