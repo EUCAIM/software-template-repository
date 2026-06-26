@@ -1,0 +1,28 @@
+{
+  "age_imbalance": true,
+  "sex_imbalance": false,
+  "ethnicity_imbalance": true,
+  "details": {
+    "sex": {
+      "global_counts": {
+        "com1001366": 25,
+        "com1001370": 25
+      },
+      "global_dominant_frac": 0.5,
+      "degenerate_clients": []
+    },
+    "ethnicity": {
+      "global_counts": {
+        "com1001311": 35,
+        "com1001046": 15
+      },
+      "global_dominant_frac": 0.7,
+      "degenerate_clients": [
+        "ds-2"
+      ]
+    }
+  },
+  "age_diff": 48.24999999999999,
+  "number_sets": 2,
+  "evaluated_sets": 2
+}

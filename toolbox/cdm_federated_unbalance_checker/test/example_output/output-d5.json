@@ -1,0 +1,17 @@
+{
+  "dataset_id": "ds-5",
+  "num_patients": 10,
+  "age_mean": 62.2,
+  "age_std": 5.223876806442595,
+  "sex_counts": {
+    "COM1001370": 5,
+    "COM1001366": 5
+  },
+  "ethnicity_counts": {
+    "COM1001311": 5,
+    "COM1001209": 5
+  },
+  "exitcode": 0,
+  "error": null,
+  "dataset_type": "ecuaim"
+}
