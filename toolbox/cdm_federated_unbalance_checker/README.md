@@ -89,8 +89,8 @@ Execute the `runner` over _ds-8_:
 
 ```bash
 docker run --rm \
-  -v $(pwd)/runner/test:/data:ro \               # mounting data volume (read-only)
-  -v $(pwd)/out:/sandbox \                       # mounting sandbox to save output (read and write)
+  -v $(pwd)/test/example_input:/data:ro \               # mounting data volume (read-only)
+  -v $(pwd)/test/example_output:/sandbox \                       # mounting sandbox to save output (read and write)
   federated-unbalance-runner python main.py \    # image to run
   -i /data/ds-8 \                                # path to the input dataset
   -o /sandbox/output-d8.json                     # path to the output file
@@ -137,7 +137,7 @@ Let’s start by running the `aggregator` in an unbiased situation:
 
 ```bash
 docker run --rm \
-  -v $(pwd)/out:/sandbox \
+  -v $(pwd)/test/example_output:/sandbox \
   federated-unbalance-aggregator \
   -i /sandbox/output-d5.json /sandbox/output-d6.json /sandbox/output-d7.json \
   -o /sandbox/
@@ -195,7 +195,7 @@ Now let’s run the `aggregator` again in a biased situation:
 
 ```bash
 docker run --rm \
-  -v $(pwd)/out:/sandbox \
+  -v $(pwd)/test/example_output:/sandbox \
   federated-unbalance-aggregator \
   -i /sandbox/output-d3.json /sandbox/output-d4.json /sandbox/output-d8.json \
   -o /sandbox/
@@ -211,7 +211,7 @@ Let’s run the `aggregator` one more time in another biased situation:
 
 ```bash
 docker run --rm \
-  -v $(pwd)/out:/sandbox \
+  -v $(pwd)/test/example_output:/sandbox \
   federated-unbalance-aggregator \
   -i /sandbox/output-d1.json /sandbox/output-d2.json \
   -o /sandbox/
