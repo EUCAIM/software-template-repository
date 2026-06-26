@@ -70,8 +70,8 @@ The folder `runner/test` contains a script (`generate_datasets.py`) that creates
 First, prepare the local images using the two Dockerfiles included in the `runner` and `aggregator` repositories.
 
 ```bash
-docker build -f runner/dockerfile -t federated-unbalance-runner runner
-docker build -f aggregator/dockerfile -t federated-unbalance-aggregator aggregator
+docker build -f containers/runner/dockerfile -t federated-unbalance-runner containers/runner
+docker build -f containers/aggregator/dockerfile -t federated-unbalance-aggregator containers/aggregator
 ```
 
 Upon successful build, the images are listed as:
