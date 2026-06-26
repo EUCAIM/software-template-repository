@@ -1,0 +1,27 @@
+dataset_dirs:
+  - class: Directory
+    path: test/example_input/ds-1
+  - class: Directory
+    path: test/example_input/ds-2
+  - class: Directory
+    path: test/example_input/ds-3
+  - class: Directory
+    path: test/example_input/ds-4
+  - class: Directory
+    path: test/example_input/ds-5
+  - class: Directory
+    path: test/example_input/ds-6
+  - class: Directory
+    path: test/example_input/ds-7
+  - class: Directory
+    path: test/example_input/ds-8
+
+output_names:
+  - output-d1.json
+  - output-d2.json
+  - output-d3.json
+  - output-d4.json
+  - output-d5.json
+  - output-d6.json
+  - output-d7.json
+  - output-d8.json
