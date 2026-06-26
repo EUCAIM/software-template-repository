@@ -11,7 +11,7 @@ This template helps tool providers to create the three parts that are compulsory
 2) Metadata describing how EUCAIM platform can run the new tool
 3) Test dataset to validate the integration 
 
-As explained in the [main README file](README.md), the easiest approach is to start forking the whole repository, copying `tool_template/` and renaming it to your own tool name `toolbox/<tool_name>`. 
+As explained in the [main README file](https://github.com/EUCAIM/software-template-repository/blob/main/README.md), the easiest approach is to start forking the whole repository, copying `tool_template/` and renaming it to your own tool name `toolbox/<tool_name>`. 
 
 **For more details check the [EUCAIM Software Packaging Guide v1.4](https://docs.google.com/document/d/18vvCtJbzcM3VPOUA0wF03Vg8RohkNByWi0iqlbZ3Zmk/edit?usp=sharing)**
 
@@ -59,13 +59,13 @@ Tool providers are free to build images using their own CI/CD pipelines.
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------- |
 | `README.md`                    | Template documentation and usage instructions.                                                              |
 | `LICENSE`                      | License terms and conditions governing the use, distribution, and modification of this project.                                                              |
-| `task_containers`    |                                                         |
+| `task_containers`    |  Contains one or more task-specific container implementations. Each task container includes the Dockerfile, application source code, and the entrypoint.sh required to build and execute the container. |
 | `task_containers/container_name_task-A/dockerfile`    | Reference Dockerfile to build your application image.                                                       |
 | `task_containers/container_name_task-A/entrypoint.sh` | Platform-managed startup script. Performs runtime user configuration and launches the application securely. |
 | `task_containers/container_name_task-A/app/`          | Place your application source code, binaries, scripts, and assets here.                                     |
-| `metadata`    | explain                                                        |
+| `metadata`    | Contains tool descriptors and metadata required for integration with the EUCAIM platform (e.g., CWL descriptors, workflow definitions, and execution metadata).                                                        |
 | `docs/`                        | Optional documentation for your application.                                                                |
-| `test/`                        |  explain                                                                |
+| `test/`                        |  Contains the resources required to validate the tool, including representative input datasets and the corresponding expected outputs.                                                                |
 
 
 
@@ -201,7 +201,7 @@ Expected output:
 my-application   latest   <IMAGE_ID>   <DATE>   <SIZE>
 ```
 
-### Step 5: Testing the Image
+# How to prepare test dataset
 
 At minimum contributors shall provide
 
@@ -248,7 +248,7 @@ including
 
 Additional metadata formats may be added in the future.
 
-## Support
+# Support
 
 If your application cannot run correctly within this template, provide the following information when contacting EUCAIM to (support@eucaim)[support_eucaim@example]:
 
@@ -261,7 +261,7 @@ If your application cannot run correctly within this template, provide the follo
 
 This information will help validate compatibility with the platform runtime environment.
 
-## Security Guidelines
+# Security Guidelines
 
 Applications should:
 
