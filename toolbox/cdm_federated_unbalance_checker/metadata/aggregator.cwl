@@ -1,7 +1,7 @@
 cwlVersion: v1.2
 class: FEMTask
 
-id: aggregator
+id: federated-unbalance-aggregator
 label: Federated Unbalance Aggregator
 doc: A Python tool for federated dataset unbalance checking (aggregation component)
 
@@ -19,25 +19,16 @@ inputs:
       position: 1
       prefix: -i
       separate: true
+
   output_dir:
     type: string
-    doc: Directory where report.json will be written.
+    doc: Directory where report.json and .html will be written.
     default: .
     inputBinding:
       position: 2
       prefix: -o
       separate: true
       valueFrom: $(runtime.outdir)
-
-  log_stdout:
-    type: string
-    doc: Filename for standard output log.
-    default: stdout.log
-
-  log_stderr:
-    type: string
-    doc: Filename for standard error log.
-    default: stderr.log
 
 outputs:
   report:
@@ -46,22 +37,10 @@ outputs:
     outputBinding:
       glob: report.json
 
-  task_stdout:
-    type: File
-    doc: Captured standard output.
-    outputBinding:
-      glob: $(inputs.log_stdout)
-
-  task_stderr:
-    type: File
-    doc: Captured standard error.
-    outputBinding:
-      glob: $(inputs.log_stderr)
-
 baseCommand: [python, main.py]
 
 metadata:                 
-  author: Mona Ashtari
+  author: Mona Ashtari, Carles Hernandez-Ferrer
   version: "alpha2.0"
   orchestrator:
     network: overlay
