@@ -1,0 +1,52 @@
+# femworkflow.schema.yaml
+cwlVersion: v1.2
+class: FEMWorkflow
+
+id: federated-unbalance-workflow
+label: Federated Unbalance Workflow
+doc: A Python tool for federated dataset unbalance checking
+
+execution_nodes:
+  - node_alias: []
+    node_name: []
+
+bundles:
+  - bundle_id: federated-unbalance-runner-bundle
+    execution_sites:
+      - node_alias: []
+        role: worker
+
+  - bundle_id: federated-unbalance-aggregator-bundle
+    execution_sites:
+      - node_alias: []
+        role: worker
+
+inputs:
+  - input_name: dataset_dirs
+    type: Directory[]
+    required: true
+    targets:
+      - bundle_id: federated-unbalance-runner-bundle
+        bundle_input_name: dataset_dirs
+
+outputs:
+  - output_name: report
+    source:
+      bundle_id: federated-unbalance-aggregator-bundle
+      bundle_output_name: report
+
+connections:
+  - from:
+      bundle_id: federated-unbalance-runner-bundle
+      output: runner_jsons
+    to:
+      bundle_id: federated-unbalance-aggregator-bundle
+      input: runner_jsons
+
+
+metadata:
+  author: Mona Ashtari, Carles Hernandez-Ferrer
+  version: "alpha2.0"
+  version_control:
+    repository: https://gitlab.bsc.es/fl/eucaim-cdm-federated-unbalance
+    branch: main
