@@ -246,7 +246,7 @@ including
 * a workflow CWL describing the complete tool execution
 * `bundle.cwl` defining the overall workflow
 
-Additional metadata formats may be added in the future.
+More information can be fined (here)[https://docs.google.com/document/d/19cZr_iYzuy8YEssWTFLVitIHBXTGpK5c9rQizbE9R6w/edit?usp=sharing]. Additional metadata formats may be added in the future.
 
 # Support
 
@@ -269,13 +269,10 @@ Applications should:
 * Store writable data in designated application directories.
 * Use relative paths where possible.
 * Handle termination signals correctly (`SIGTERM`, `SIGINT`).
-* Write logs to stdout/stderr.
 
 Applications should not:
 
 * Modify `/etc/passwd` or `/etc/group`.
 * Replace the provided entrypoint.
 * Attempt privilege escalation.
-
-# How to prepare the Tool documentation
 
