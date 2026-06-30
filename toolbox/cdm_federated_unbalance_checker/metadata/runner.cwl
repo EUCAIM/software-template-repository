@@ -1,7 +1,7 @@
 cwlVersion: v1.2
 class: FEMTask
 
-id: runner
+id: federated-unbalance-runner
 label: Federated Unbalance Runner
 doc: A Python tool for federated dataset unbalance checking
 
@@ -18,7 +18,7 @@ inputs:
       prefix: -i
       separate: true
   
-  output_name:
+  json_file:
     type: string
     doc: Name of the JSON summary file to be produced.
     inputBinding:
@@ -26,40 +26,18 @@ inputs:
       prefix: -o
       separate: true
       valueFrom: $(runtime.outdir)/$(self)
-  
-  log_stdout:
-    type: string
-    doc: Filename for standard output log.
-    default: stdout.log  # Enforced default name
-  
-  log_stderr:
-    type: string
-    doc: Filename for standard error log.
-    default: stderr.log  # Enforced default name
 
 outputs:
   runner_json:
     type: File
     doc: JSON summary generated for the input dataset.
     outputBinding:
-      glob: $(inputs.output_name)
-
-  task_stdout:
-    type: File
-    doc: Captured standard output.
-    outputBinding:
-      glob: $(inputs.log_stdout)
-
-  task_stderr:
-    type: File
-    doc: Captured standard error.
-    outputBinding:
-      glob: $(inputs.log_stderr)
+      glob: $(inputs.json_file)
 
 baseCommand: [python, main.py]
 
 metadata:                 
-  author: Mona Ashtari
+  author: Mona Ashtari, Carles Hernandez-FErrer
   version: "alpha2.0"
   orchestrator:
     network: overlay
