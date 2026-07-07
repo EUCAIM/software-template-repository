@@ -13,6 +13,10 @@ inputs:
   dataset_dir:
     type: Directory
     doc: Input dataset directory containing clinical_mandatory_view.csv.
+    required: true
+    default: null
+    hidden: false
+    source: user
     inputBinding:
       position: 1
       prefix: -i
@@ -21,6 +25,10 @@ inputs:
   json_file:
     type: string
     doc: Name of the JSON summary file to be produced.
+    required: true
+    default: null
+    hidden: false
+    source: user
     inputBinding:
       position: 2
       prefix: -o
@@ -35,6 +43,8 @@ outputs:
       glob: $(inputs.json_file)
 
 baseCommand: [python, main.py]
+
+expectedExitCode: 0  
 
 metadata:                 
   author: Mona Ashtari, Carles Hernandez-FErrer
