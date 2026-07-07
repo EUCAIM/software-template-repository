@@ -11,10 +11,12 @@ requirements:
 
 inputs:
   runner_jsons:
-    type:
-      type: array
-      items: File
+    type: File[]
     doc: JSON summary files produced by the runner.
+    required: true
+    default: null
+    hidden: false
+    source: user
     inputBinding:
       position: 1
       prefix: -i
@@ -24,6 +26,9 @@ inputs:
     type: string
     doc: Directory where report.json and .html will be written.
     default: .
+    required: true
+    hidden: false
+    source: user
     inputBinding:
       position: 2
       prefix: -o
@@ -38,6 +43,8 @@ outputs:
       glob: report.json
 
 baseCommand: [python, main.py]
+
+expectedExitCode: 0  
 
 metadata:                 
   author: Mona Ashtari, Carles Hernandez-Ferrer
