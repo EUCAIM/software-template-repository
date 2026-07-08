@@ -3,7 +3,7 @@ class: FEMBundle
 
 id: federated-unbalance-runner-bundle
 label: Federated Unbalance Bundle
-doc: A Python tool for federated dataset unbalance checking
+doc: Runs dataset-level summaries for federated dataset balance analysis.
 
 mode: federated
 
@@ -12,27 +12,31 @@ tasks:
     role: client
     multiplicity:
       type: multiple
+      min: 1       
+      max: null 
       doc: One runner is executed per dataset.
 
-inputs:
-  - dataset_dirs:
-      type: Directory[]
-      doc: Dataset directories to be summarized by the runner.
-      required: true
-      targets:
-        - task_id: federated-unbalance-runner
-          task_input_name: dataset_dir
+shared_inputs:
+  - id: dataset_dirs
+    type: Directory
+    doc: Dataset directories containing clinical_mandatory_view.csv.
+    required: true
+    default: null
+    hidden: false
+    constraints: {}
+    targets:
+      - task_id: federated-unbalance-runner
+        task_input_name: dataset_dir
 
-outputs:
-  runner_json:
-    type: File[]
-    doc: Name of the JSON file to be produced.
+shared_outputs:
+  - id: runner_json
+    type: File
+    doc: JSON summary produced by each runner instance.
     source:
       task_id: federated-unbalance-runner
       task_output_name: runner_json
-    aggregation: keep_array
 
-arguments: []
+dependencies: []
 
 metadata:
   author: Mona Ashtari, Carles Hernandez-Ferrer
