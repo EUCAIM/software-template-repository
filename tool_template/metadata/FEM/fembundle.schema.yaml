@@ -1,0 +1,63 @@
+# fembundle.schema.yaml
+# FEMBundle — groups FEMTasks into an execution unit with a mode
+# (standalone | distributed | federated) and roles.
+
+cwlVersion: v1.2
+class: FEMBundle
+
+id: string
+label: string
+doc: string
+
+mode: federated | distributed | standalone
+
+tasks:
+  - task_id: string            # Reference to a FEMTask id
+    role: server | client | worker
+    multiplicity:
+      type: single | multiple
+      min: int                 # Optional, default 1. Only for type: multiple
+      max: int | null          # Optional, null = unbounded
+      doc: string              # e.g. "1 server", "one client per dataset"
+
+# Bundle-level knobs that fan out to one or more task inputs.
+# A task input captured here is NOT implicitly promoted anymore.
+shared_inputs:
+  - id: string                 # Bundle-level name (what the workflow sees)
+    type: string | int | float | boolean | File | Directory | string[]
+    doc: string
+    required: boolean
+    default: any | null
+    hidden: boolean            # Same semantics as in FEMTask
+    constraints: {}            # Optional, same shape as FEMTask
+    targets:
+      - task_id: string
+        task_input_name: string   # Input id inside that task
+
+# Bundle-level outputs re-exported from a task output.
+# Task outputs not listed here are implicitly promoted as
+# <task_id>.<output_id>.
+# NOTE: outputs of a multiplicity: multiple task remain per-instance at this
+# level (one file per node). How they surface as a single result is decided
+# at the workflow layer (`collect`) or by a connection (`delivery`).
+shared_outputs:
+  - id: string
+    type: File | Directory | string[]
+    doc: string
+    source:
+      task_id: string
+      task_output_name: string
+
+# Intra-bundle orderings. `from` is the task being waited on;
+# `to` lists the tasks that wait.
+dependencies:
+  - type: status | exit
+    value: string | int        # status name (e.g. RUNNING) or exit code
+    from: task_id              # Mandatory: the task being waited on
+    to: [task_id]              # The tasks that wait
+
+metadata:
+  author: string
+  version: string
+  orchestrator:
+    additional_metadata: object

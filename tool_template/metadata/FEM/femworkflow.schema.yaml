@@ -1,0 +1,124 @@
+# femworkflow.schema.yaml
+# FEMWorkflow — composes FEMBundles, declares the user-facing interface
+# (THE FORM), site slots, and inter-bundle connections.
+
+cwlVersion: v1.2
+class: FEMWorkflow
+
+id: string
+label: string
+doc: string
+
+# ---- Site slots (symbolic; bound to real sites by the submission) ----------
+execution_sites:
+  - alias: string              # Symbolic name referenced by bundles/inputs
+    kind: single | group
+    selection: user | fixed
+    value: string | [string] | null   # Only for selection: fixed
+    min: int                   # Optional, kind: group only
+    max: int | null            # Optional, null = unbounded
+    doc: string
+
+# ---- Bundles and how their roles map onto site slots ------------------------
+bundles:
+  - bundle_id: string
+    doc: string
+    site_bindings:             # One entry per role the bundle declares
+      - role: server | client | worker
+        site: alias            # A slot alias from execution_sites.
+                               # role with multiplicity multiple -> the slot
+                               # should be kind: group (one task instance per
+                               # concrete site in the group).
+
+# ---- THE FORM ----------------------------------------------------------------
+inputs:
+  - id: string
+    type: string | int | float | boolean | File | Directory | string[]
+    doc: string                # Shown as the field's help text
+    required: boolean
+    default: any | null
+    hidden: boolean            # true -> not rendered; needs default or
+                               # downstream runtime/connection source
+    scope: global | per_node
+    constraints: {}            # Optional; same shape as FEMTask (enum, min…)
+    targets:
+      - bundle_id: string
+        bundle_input_name: string   # A shared_input id, or an implicitly
+                                    # promoted "<task_id>.<input_id>"
+
+# ---- Workflow-level outputs ---------------------------------------------------
+# When the source task has multiplicity: multiple there are N files, one per
+# instance; `collect` defines how they surface as ONE workflow output.
+outputs:
+  - id: string
+    type: File | Directory | string[]
+    doc: string
+    source:
+      bundle_id: string
+      bundle_output_name: string
+    collect: array | zip
+                               # Only meaningful (and then MANDATORY) when the
+                               # source task has multiplicity: multiple; must
+                               # be omitted for single-instance sources.
+                               # array -> File[] in instantiation order
+                               #          (order not guaranteed meaningful)
+                               # zip   -> single archive built by the
+                               #          orchestrator, one folder per site
+                               #          alias (e.g. eucaim/report.json)
+
+# ---- Inter-bundle connections --------------------------------------------------
+connections:
+  - type: exit | status | file
+    policy: all | any          # Optional, default all.
+                               # all -> EVERY instance of `from` must satisfy
+                               #        the condition or the workflow FAILS.
+                               # any -> at least one instance suffices.
+    expectedExitCode: int      # type: exit only, default 0
+    value: string              # type: status only, e.g. RUNNING
+    delivery: matched | gather | broadcast
+                               # type: file only. How N source files map onto
+                               # M target instances. Default: matched.
+                               # matched   -> pair instances by site alias;
+                               #              VALID ONLY when the producing and
+                               #              consuming roles bind to the SAME
+                               #              site slot (validator enforces).
+                               # gather    -> all N source files delivered to a
+                               #              single target instance; receiving
+                               #              input type must be File[] or
+                               #              Directory.
+                               # broadcast -> single source file copied to all
+                               #              M target instances; source must
+                               #              be multiplicity single.
+    from:
+      bundle_id: string
+      output_name: string      # type: file only
+    to:
+      bundle_id: string
+      input_name: string       # type: file only; MUST reference an input
+                               # declared with source: connection in the
+                               # receiving task/bundle
+
+metadata:
+  author: string
+  version: string
+  apps:                        # Application-specific metadata (BSC/UPV)
+    app_name:                  # "OpenVRE", "jobman", "nextflow", ...
+      enabled: boolean
+      config:
+        - key: string
+          value: any
+  version_control:
+    repository: string
+    branch: string
+    commit: string
+    tag: string
+  compliance:
+    data_classification: public | private
+    retention_policy:
+      inputs_retention: string
+      outputs_retention: string
+      logs_retention: string
+    security:
+      access_control:
+        - role: string
+          permissions: [string]

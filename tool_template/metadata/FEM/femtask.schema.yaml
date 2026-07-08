@@ -1,0 +1,81 @@
+# femtask.schema.yaml
+# FEMTask — FEM equivalent of a CWL CommandLineTool.
+
+cwlVersion: v1.2
+class: FEMTask
+
+id: string                     # Machine-readable, unique task id
+label: string                  # Human-readable name
+doc: string                    # Description
+
+requirements:
+  - class: DockerRequirement
+    dockerPull: string         # Full image URL (tag included, Harbor registry)
+  - class: EnvVarRequirement   # Optional. Keep to a minimum; never user-facing
+    envDef:
+      - envName: string
+        envValue: string
+  - class: ResourceRequirement # Optional
+    coresMin: int              # Minimum CPU cores
+    ramMin: int                # Minimum RAM in MB
+  - class: CUDARequirement     # Optional, for GPU tasks
+    cudaVersionMin: string
+    cudaComputeCapability: string
+    cudaDeviceCountMin: int
+  - class: InitialWorkDirRequirement  # Optional: volumes mounted at runtime
+    listing:                          # (filled per-node by the deployment)
+      - entryname: string
+        entry: string
+        writable: boolean      # Optional, default false
+
+baseCommand: [string]          # Array form, e.g. [python3, client_cmd.py]
+
+inputs:
+  - id: string                 # Unique within the task
+    type: string | int | float | boolean | File | Directory | string[]
+    doc: string
+    required: boolean          # A value MUST exist at submission time.
+                               # The default pre-fills the form; if the user
+                               # clears it, validation fails.
+    default: any | null        # null = no default
+    hidden: boolean            # Optional, default false.
+                               # true  -> never rendered in any form.
+                               #          Must then have a default OR
+                               #          source: connection.
+                               # false -> promoted (implicitly) to the bundle
+                               #          and eligible to appear in the form
+                               #          via the workflow layer.
+    source: user | connection
+                               # user       -> value comes from the web form
+                               #               (through workflow inputs /
+                               #               submission; per-node values
+                               #               included)
+                               # connection -> value (a File) arrives through
+                               #               a workflow `connections` entry
+    constraints:               # Optional; consumed by the form generator
+      enum: [any]              # Closed list of allowed values
+      min: number              # For numeric types
+      max: number
+      pattern: string          # Regex for strings
+    inputBinding:              # How the value is rendered on the CLI.
+      position: int            # Ordering only — nothing else lives here.
+      prefix: string
+      separate: boolean        # true: --x VALUE ; false: --x=VALUE
+      itemSeparator: string    # For array types, e.g. "," -> --labels a,b,c
+                               # Omit to repeat the prefix per item.
+
+outputs:
+  - id: string
+    type: File | Directory | string[]
+    doc: string
+    outputBinding:
+      glob: string             # $(inputs.*) interpolation allowed
+
+expectedExitCode: int          # Default 0
+
+metadata:
+  author: string
+  version: string
+  orchestrator:
+    network: overlay | host | bridge
+    additional_metadata: object   # Freeform, node-level orchestration
