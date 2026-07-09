@@ -25,7 +25,7 @@ The repository is strucutred like folows:
 └──  tool_template/
 ```
 
-- `toolbox/`: it contains the supportive information of on-boarded approved tools to successfully test and register them in EUCAIM platform. Each subdirectory corresponds to a single tool. The tool [cdm_federatedunbalance_checker](cdm_federatedunbalance_checker) is provided as an example implementation and may be used as a reference by future contributors.
+- `toolbox/`: it contains the supportive information of on-boarded approved tools to successfully test and register them in EUCAIM platform. Each subdirectory corresponds to a single tool. The tool [cdm_federatedunbalance_checker](https://urldefense.com/v3/__https://github.com/EUCAIM/software-template-repository/tree/main/toolbox/cdm_federated_unbalance_checker__;!!D9dNQwwGXtA!XiyUWjEHlqm1Cwb0f1zn2dyB9JQ7bC_kbd4ZTBQYA-yvAZGaXOVCdiM_Hx0aIFcF_XxxQp3FLuEgoPOacZwPa14y$) is provided as an example implementation and may be used as a reference by future contributors.
 - `tool_template`:  it contains the template that tool providers shall use to prepare a new submission. Tool providers should not modify the template directly. Instead, they should copy it into the `toolbox/` directory using their tool name. Example:
 
 ```text
@@ -38,7 +38,7 @@ The repository aims at keeping the contribution barrier as low as possible. Howe
 
 A tool submission **must contain**
 
-* references to task container images already available at [EUCAIM Harbor registry]()
+* references to task container images already available at [EUCAIM Harbor registry](https://urldefense.com/v3/__https://harbor.eucaim.cancerimage.eu/__;!!D9dNQwwGXtA!XiyUWjEHlqm1Cwb0f1zn2dyB9JQ7bC_kbd4ZTBQYA-yvAZGaXOVCdiM_Hx0aIFcF_XxxQp3FLuEgoPOacZZxnLLB$)
 * integration test datasets, including input datasets and expected outputs
 * metadata required for execution (e.g. CWL files for FEM)
 
@@ -60,7 +60,7 @@ cp -r tool_template toolbox/my_amazing_tool
 
 ### 3. Prepare your tool
 
-Follow the instructions described in [tool_template/README.md]([tool_template/README.md) In particular, you will need to provide
+Follow the instructions described in [tool_template/README.md](tool_template/README.md) In particular, you will need to provide
 
 * task container information
 * metadata for FEM execution
