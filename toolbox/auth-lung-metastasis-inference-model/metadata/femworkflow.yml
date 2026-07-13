@@ -1,0 +1,108 @@
+cwlVersion: v1.2
+class: FEMWorkflow
+
+id: lung-metastasis-workflow
+label: Lung Cancer Metastasis Risk Classification Workflow
+doc: |
+  Standalone workflow for predicting the risk of distant metastasis within
+  12 months for lung cancer patients. Executes the lung-metastasis-prediction
+  bundle at a single site using CT DICOM series, a tumour segmentation mask,
+  and clinical TNM stage data.
+  Outputs a JSON classification result and optional PNG visualisations with
+  LIME or ANCHOR explainability.
+
+# ---- Site slots ---------------------------------------------------------------
+execution_sites:
+  - alias: inference-site
+    kind: single
+    selection: user
+    doc: Site where patient CT data resides and inference will be executed.
+
+# ---- Bundle bindings ----------------------------------------------------------
+bundles:
+  - bundle_id: lung-metastasis-prediction
+    doc: Metastasis risk classification bundle (standalone mode).
+    site_bindings:
+      - role: worker
+        site: inference-site
+
+# ---- Workflow inputs (THE FORM) -----------------------------------------------
+inputs:
+  - id: input_data_dir
+    type: Directory
+    doc: |
+      Patient CT imaging and clinical data directory (provided by the site's data store).
+      Required contents (flat directory):
+        *.dcm                 — CT DICOM slices (one series, no subdirectories)
+        <patient_id>.nii.gz   — tumour segmentation mask (NIfTI format)
+        <clinical_template>.xls — clinical spreadsheet with TNM stage column
+    required: true
+    hidden: true
+    scope: per_node
+    targets:
+      - bundle_id: lung-metastasis-prediction
+        bundle_input_name: input_data_dir
+
+  - id: user_vars_config
+    type: File
+    doc: |
+      User configuration JSON. Upload a file with the following structure:
+        {
+          "model_name": "svm(rbf)_v3.joblib",
+          "clinical_template": "<filename>.xls",
+          "Debug": false,
+          "save_intermediate_data": false,
+          "explainability_mode": 1,
+          "explain_method": "lime"
+        }
+      Allowed explain_method values: "lime", "anchor".
+      Set explainability_mode to 0 to disable XAI.
+    required: true
+    hidden: false
+    scope: global
+    targets:
+      - bundle_id: lung-metastasis-prediction
+        bundle_input_name: user_vars_config
+
+# ---- Workflow outputs ---------------------------------------------------------
+outputs:
+  - id: classification_result
+    type: File
+    doc: |
+      JSON file with the predicted metastasis risk and probability.
+        pred_label: "true"  — no distant metastasis predicted within 12 months (class 0)
+        pred_label: "false" — distant metastasis predicted within 12 months (class 1)
+        prob: probability percentage (e.g. "81.20%")
+    source:
+      bundle_id: lung-metastasis-prediction
+      bundle_output_name: results_json
+
+  - id: png_visualizations
+    type: Directory
+    doc: |
+      Directory containing PNG exports of CT DICOM slices and, if XAI is enabled,
+      LIME or ANCHOR explanation charts.
+    source:
+      bundle_id: lung-metastasis-prediction
+      bundle_output_name: png_output_dir
+
+# ---- Workflow-level metadata --------------------------------------------------
+metadata:
+  author: iladakig@auth.gr
+  version: "1.0"
+  apps:
+    app_name: OpenVRE
+    enabled: true
+    version_control:
+      repository: ""
+      branch: main
+  compliance:
+    data_classification: private
+    retention_policy:
+      inputs_retention: session
+      outputs_retention: 30d
+      logs_retention: 30d
+  security:
+    access_control:
+      - role: researcher
+        permissions: [read, execute]
