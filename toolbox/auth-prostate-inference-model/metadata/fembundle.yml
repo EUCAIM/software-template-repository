@@ -1,0 +1,68 @@
+cwlVersion: v1.2
+class: FEMBundle
+
+id: prostate-prediction
+label: Prostate Cancer Prediction Bundle
+doc: |
+  Standalone bundle that wraps the prostate-cancer-classifier FEMTask.
+  Runs a single instance at one site with no federation or distribution.
+  The bundle exposes the task's inputs and outputs to the workflow layer.
+
+mode: standalone
+
+tasks:
+  - task_id: prostate-cancer-classifier
+    role: worker
+    multiplicity:
+      type: single
+      doc: One execution of the classification pipeline per submission.
+
+shared_inputs:
+  - id: input_data_dir
+    type: Directory
+    doc: |
+      Patient imaging and clinical data directory (see FEMTask for full structure).
+      Arrives via a workflow connection from the site's data store.
+    required: true
+    hidden: true
+    targets:
+      - task_id: prostate-cancer-classifier
+        task_input_name: input_data_dir
+
+  - id: user_vars_config
+    type: File
+    doc: |
+      User configuration JSON. Upload a file with the following structure:
+        {
+          "model_name": "prostate_brf.joblib",
+          "clinical_template": "<filename>.xls",
+          "Debug": false,
+          "save_intermediate_data": true,
+          "explainability_mode": 1,
+          "explain_method": "lime",
+          "dwi_image_type": true
+        }
+    required: true
+    hidden: false
+    targets:
+      - task_id: prostate-cancer-classifier
+        task_input_name: user_vars_config
+
+shared_outputs:
+  - id: results_json
+    type: File
+    doc: JSON file with predicted cancer type (cisPCa/csPCa) and probability score.
+    source:
+      task_id: prostate-cancer-classifier
+      task_output_name: results_json
+
+  - id: png_output_dir
+    type: Directory
+    doc: Directory of DICOM PNG exports and XAI explanation visualisations.
+    source:
+      task_id: prostate-cancer-classifier
+      task_output_name: png_output_dir
+
+metadata:
+  author: iladakig@auth.gr
+  version: "1.0"

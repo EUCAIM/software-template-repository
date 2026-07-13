@@ -1,0 +1,21 @@
+{
+  "input_data_training": "",
+  "input_data_evaluation": "",
+  "input_data_inference": {
+    "prostate": {
+      "raw": "/tmp/input/data",
+      "segmentation": ""
+    }
+  },
+  "input_user_vars": "/tmp/input/configs/user_vars.json",
+  "input_model": "model",
+  "input_models": "",
+  "output_model": "",
+  "output_evaluation_results": "",
+  "output_inference_results": "/tmp/output",
+  "api_ping_url": "/api/ping",
+  "api_run_url": "/api/run",
+  "api_end_url": "/api/end",
+  "api_host": "0.0.0.0",
+  "api_port": "8080"
+}
