@@ -1,0 +1,108 @@
+cwlVersion: v1.2
+class: FEMWorkflow
+
+id: lung-staging-workflow
+label: Lung Cancer Staging Classification Workflow (Early vs Advanced)
+doc: |
+  Standalone workflow for classifying lung cancer patients into early stage
+  (I/II) or advanced stage (III/IV). Executes the lung-staging-prediction
+  bundle at a single site using CT DICOM series, a tumour segmentation mask,
+  and patient age data.
+  Outputs a JSON classification result and optional PNG visualisations with
+  LIME or ANCHOR explainability.
+
+# ---- Site slots ---------------------------------------------------------------
+execution_sites:
+  - alias: inference-site
+    kind: single
+    selection: user
+    doc: Site where patient CT data resides and inference will be executed.
+
+# ---- Bundle bindings ----------------------------------------------------------
+bundles:
+  - bundle_id: lung-staging-prediction
+    doc: Lung cancer staging classification bundle (standalone mode).
+    site_bindings:
+      - role: worker
+        site: inference-site
+
+# ---- Workflow inputs (THE FORM) -----------------------------------------------
+inputs:
+  - id: input_data_dir
+    type: Directory
+    doc: |
+      Patient CT imaging and clinical data directory (provided by the site's data store).
+      Required contents (flat directory):
+        *.dcm                 — CT DICOM slices (one series, no subdirectories)
+        <patient_id>.nii.gz   — tumour segmentation mask (NIfTI format)
+        <clinical_template>.xls — clinical spreadsheet with patient age column
+    required: true
+    hidden: true
+    scope: per_node
+    targets:
+      - bundle_id: lung-staging-prediction
+        bundle_input_name: input_data_dir
+
+  - id: user_vars_config
+    type: File
+    doc: |
+      User configuration JSON. Upload a file with the following structure:
+        {
+          "model_name": "rf_staging_v8_subset.joblib",
+          "clinical_template": "<filename>.xls",
+          "Debug": false,
+          "save_intermediate_data": false,
+          "explainability_mode": 1,
+          "explain_method": "lime"
+        }
+      Allowed explain_method values: "lime", "anchor".
+      Set explainability_mode to 0 to disable XAI.
+    required: true
+    hidden: false
+    scope: global
+    targets:
+      - bundle_id: lung-staging-prediction
+        bundle_input_name: user_vars_config
+
+# ---- Workflow outputs ---------------------------------------------------------
+outputs:
+  - id: classification_result
+    type: File
+    doc: |
+      JSON file with the predicted lung cancer stage and probability.
+        pred_label: "I/II"   — early stage lung cancer (class 0)
+        pred_label: "III/IV" — advanced stage lung cancer (class 1)
+        prob: probability percentage (e.g. "74.50%")
+    source:
+      bundle_id: lung-staging-prediction
+      bundle_output_name: results_json
+
+  - id: png_visualizations
+    type: Directory
+    doc: |
+      Directory containing PNG exports of CT DICOM slices and, if XAI is enabled,
+      LIME or ANCHOR explanation charts.
+    source:
+      bundle_id: lung-staging-prediction
+      bundle_output_name: png_output_dir
+
+# ---- Workflow-level metadata --------------------------------------------------
+metadata:
+  author: iladakig@auth.gr
+  version: "1.0"
+  apps:
+    app_name: OpenVRE
+    enabled: true
+    version_control:
+      repository: ""
+      branch: main
+  compliance:
+    data_classification: private
+    retention_policy:
+      inputs_retention: session
+      outputs_retention: 30d
+      logs_retention: 30d
+  security:
+    access_control:
+      - role: researcher
+        permissions: [read, execute]

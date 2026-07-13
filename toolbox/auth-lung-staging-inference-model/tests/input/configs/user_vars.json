@@ -1,0 +1,8 @@
+{
+  "model_name": "rf_staging_v8_subset.joblib",
+  "clinical_template": "clinical_data.xls",
+  "Debug": false,
+  "save_intermediate_data": true,
+  "explainability_mode": 1,
+  "explain_method": "lime"
+}
