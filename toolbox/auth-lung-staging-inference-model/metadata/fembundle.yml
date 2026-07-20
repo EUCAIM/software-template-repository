@@ -1,0 +1,69 @@
+cwlVersion: v1.2
+class: FEMBundle
+
+id: lung-staging-prediction
+label: Lung Cancer Staging Prediction Bundle
+doc: |
+  Standalone bundle that wraps the lung-staging-classifier FEMTask.
+  Runs a single instance at one site with no federation or distribution.
+  The bundle exposes the task's inputs and outputs to the workflow layer.
+
+mode: standalone
+
+tasks:
+  - task_id: lung-staging-classifier
+    role: worker
+    multiplicity:
+      type: single
+      doc: One execution of the staging classification pipeline per submission.
+
+shared_inputs:
+  - id: input_data_dir
+    type: Directory
+    doc: |
+      Patient CT imaging and clinical data directory (see FEMTask for full structure).
+      Arrives via a workflow connection from the site's data store.
+    required: true
+    hidden: true
+    targets:
+      - task_id: lung-staging-classifier
+        task_input_name: input_data_dir
+
+  - id: user_vars_config
+    type: File
+    doc: |
+      User configuration JSON. Upload a file with the following structure:
+        {
+          "model_name": "rf_staging_v8_subset.joblib",
+          "clinical_template": "<filename>.xls",
+          "Debug": false,
+          "save_intermediate_data": false,
+          "explainability_mode": 1,
+          "explain_method": "lime"
+        }
+    required: true
+    hidden: false
+    targets:
+      - task_id: lung-staging-classifier
+        task_input_name: user_vars_config
+
+shared_outputs:
+  - id: results_json
+    type: File
+    doc: |
+      JSON classification result (pred_label: "I/II"|"III/IV", prob percentage).
+      "I/II" = early stage; "III/IV" = advanced stage lung cancer.
+    source:
+      task_id: lung-staging-classifier
+      task_output_name: results_json
+
+  - id: png_output_dir
+    type: Directory
+    doc: Directory of CT PNG exports and XAI explanation visualisations.
+    source:
+      task_id: lung-staging-classifier
+      task_output_name: png_output_dir
+
+metadata:
+  author: iladakig@auth.gr
+  version: "1.0"

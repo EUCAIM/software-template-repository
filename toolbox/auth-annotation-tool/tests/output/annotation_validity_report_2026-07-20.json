@@ -1,0 +1,105 @@
+{
+    "Dataset Overall Validity": "0.00%",
+    "Patient Breakdowns": {
+        "LUNG1-001": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-002": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-003": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-004": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-005": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-006": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-007": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-008": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-009": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-010": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-011": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-012": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-013": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-014": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-015": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-016": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-017": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-018": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-019": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        },
+        "LUNG1-020": {
+            "Total Annotations": 1,
+            "Valid Annotations": 0,
+            "Validity Percentage": "0.00%"
+        }
+    }
+}

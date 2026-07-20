@@ -1,0 +1,74 @@
+cwlVersion: v1.2
+class: CommandLineTool
+
+id: prostate-cancer-classifier
+label: Prostate Cancer Classification (cisPCa vs csPCa)
+doc: |
+  Classifies prostate cancer as clinically insignificant (cisPCa) or
+  clinically significant (csPCa) using radiomic features extracted from
+  ADC and T2W MRI DICOM series, scanner metadata, and PSA/age clinical
+  data. A pre-trained Balanced Random Forest (BRF) model is applied with
+  optional LIME or ANCHOR explainability.
+
+  The tool runs inside a Docker container (WORKDIR /usr/application).
+  Input volumes must be mounted as follows before execution:
+    /tmp/input/data              — ADC/T2W DICOM series, NIfTI segmentation mask, clinical .xls
+    /tmp/input/configs/user_vars.json — user inference parameters
+    /tmp/output                  — writable output directory
+
+requirements:
+  - class: DockerRequirement
+    # Replace with the actual image URL from the EUCAIM Harbor registry.
+    dockerPull: harbor.eucaim.cancerimage.eu/processing-tools/auth-prostate-inference-model
+  - class: ResourceRequirement
+    coresMin: 2
+    ramMin: 8192
+
+# The entrypoint of the standalone (non-API) Dockerfile.
+# Executed from WORKDIR /usr/application inside the container.
+baseCommand: [python3, src/main.py]
+
+inputs:
+  input_data_dir:
+    type: Directory
+    doc: |
+      Patient imaging and clinical data directory.
+      Mounted at /tmp/input/data inside the container.
+      Expected structure:
+        Series-<n>_adc/       — ADC DICOM slices (*.dcm)
+        Series-<n>_t2w/       — T2W DICOM slices (*.dcm)
+        gland-segmentation/   — prostate gland NIfTI mask (*.nii.gz)
+        <clinical_template>.xls — clinical spreadsheet (filename set in user_vars_config)
+
+  user_vars_config:
+    type: File
+    doc: |
+      User configuration JSON mounted at /tmp/input/configs/user_vars.json.
+      Required fields:
+        model_name (str)              — model filename inside /usr/application/model/
+        clinical_template (str)       — .xls filename present in input_data_dir
+        Debug (bool)                  — reuse cached radiomics CSV from a prior run
+        save_intermediate_data (bool) — write radiomics_results.csv and metadata.csv to output
+        explainability_mode (int)     — 0 = disabled, 1 = enabled
+        explain_method (str)          — "lime" or "anchor"
+        dwi_image_type (bool)         — true: export ADC PNGs; false: export T2W PNGs
+
+outputs:
+  results_json:
+    type: File
+    doc: |
+      Classification result written to /tmp/output/results.json. Example:
+        {"pred_label": "csPCa", "prob": "72.35%"}
+    outputBinding:
+      glob: results.json
+
+  png_output_dir:
+    type: Directory
+    doc: |
+      PNG exports written to /tmp/output/pngs/.
+        pngs/*.png     — DICOM slice images from the selected series
+        pngs/*_xai.png — XAI (LIME/ANCHOR) explanation chart (if explainability_mode=1)
+    outputBinding:
+      glob: pngs
+
+successCodes: [0]

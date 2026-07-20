@@ -1,0 +1,94 @@
+cwlVersion: v1.2
+class: FEMTask
+
+id: prostate-cancer-classifier
+label: Prostate Cancer Classification (cisPCa vs csPCa)
+doc: |
+  FEM atomic task for prostate cancer type classification.
+  Uses radiomic features from ADC and T2W MRI DICOM series, DICOM scanner
+  metadata, and PSA/age clinical data to run a Balanced Random Forest (BRF)
+  inference. Optionally generates LIME or ANCHOR XAI explanations.
+
+requirements:
+  - class: DockerRequirement
+    # Replace with the actual image URL from the EUCAIM Harbor registry.
+    dockerPull: harbor.eucaim.cancerimage.eu/processing-tools/auth-prostate-inference-model
+
+  - class: ResourceRequirement
+    coresMin: 2
+    ramMin: 8192
+
+  - class: InitialWorkDirRequirement
+    listing:
+      # Map CWL-staged inputs to the paths the tool expects inside the container.
+      # The FEM platform is responsible for these volume bindings at runtime.
+      - entryname: /tmp/input/data
+        entry: $(inputs.input_data_dir)
+        writable: false
+      - entryname: /tmp/input/configs/user_vars.json
+        entry: $(inputs.user_vars_config)
+        writable: false
+      - entryname: /tmp/output
+        entry: ""
+        writable: true
+
+# Entrypoint of the standalone (non-API) Dockerfile_not_api.
+# Executed from WORKDIR /usr/application; reads environment paths from
+# src/config/environment_vars_platform.json (baked into the image).
+baseCommand: [python3, src/main.py]
+
+inputs:
+  - id: input_data_dir
+    type: Directory
+    doc: |
+      Patient imaging and clinical data directory.
+      Mounted at /tmp/input/data. Required contents:
+        Series-<n>_adc/       — ADC DICOM slices (*.dcm)
+        Series-<n>_t2w/       — T2W DICOM slices (*.dcm)
+        gland-segmentation/   — prostate gland NIfTI mask (*.nii.gz)
+        <clinical_template>.xls — clinical data spreadsheet
+    required: true
+    hidden: true
+    source: connection
+
+  - id: user_vars_config
+    type: File
+    doc: |
+      User configuration JSON. Required fields:
+        model_name (str)              — model filename inside /usr/application/model/
+        clinical_template (str)       — .xls filename present in input_data_dir
+        Debug (bool)                  — reuse cached radiomics CSV from a prior run
+        save_intermediate_data (bool) — persist radiomics_results.csv and metadata.csv
+        explainability_mode (int)     — 0 = disabled, 1 = enabled
+        explain_method (str)          — "lime" or "anchor"
+        dwi_image_type (bool)         — true: ADC PNGs; false: T2W PNGs
+    required: true
+    hidden: false
+    source: user
+
+outputs:
+  - id: results_json
+    type: File
+    doc: |
+      JSON classification result at /tmp/output/results.json.
+        pred_label: "cisPCa" | "csPCa"
+        prob: probability as a percentage string (e.g. "72.35%")
+    outputBinding:
+      glob: /tmp/output/results.json
+
+  - id: png_output_dir
+    type: Directory
+    doc: |
+      PNG visualisations at /tmp/output/pngs/.
+        *.png      — DICOM slice images
+        *_xai.png  — LIME or ANCHOR explanation chart (if enabled)
+    outputBinding:
+      glob: /tmp/output/pngs
+
+expectedExitCode: 0
+
+metadata:
+  author: iladakig@auth.gr
+  version: "1.0"
+  orchestrator:
+    network: bridge

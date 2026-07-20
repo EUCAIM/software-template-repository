@@ -1,0 +1,74 @@
+cwlVersion: v1.2
+class: CommandLineTool
+
+id: lung-staging-classifier
+label: Lung Cancer Staging Classification (Early vs Advanced)
+doc: |
+  Classifies lung cancer patients into early stage (I/II) or advanced stage
+  (III/IV) using CT radiomic features extracted from a DICOM series, scanner
+  metadata, and patient age. Uses a pre-trained Random Forest model with
+  optional LIME or ANCHOR explainability.
+
+  Runtime volumes (Docker):
+    /tmp/input/data              — CT DICOM slices (flat), NIfTI tumour mask, clinical .xls
+    /tmp/input/configs/user_vars.json — user inference parameters
+    /tmp/output                  — results.json + pngs/
+
+requirements:
+  - class: DockerRequirement
+    # Replace with the actual image URL from the EUCAIM Harbor registry.
+    dockerPull: harbor.eucaim.cancerimage.eu/processing-tools/auth-lung-staging-inference-model
+  - class: ResourceRequirement
+    coresMin: 2
+    ramMin: 8192
+
+# Entrypoint of the standalone (non-API) Dockerfile_not_api.
+# Executed from WORKDIR /usr/application inside the container.
+baseCommand: [python3, src/main.py]
+
+inputs:
+  input_data_dir:
+    type: Directory
+    doc: |
+      Patient CT imaging and clinical data directory.
+      Mounted at /tmp/input/data inside the container.
+      Expected contents (flat directory):
+        *.dcm                 — CT DICOM slices (one series, flat)
+        <patient_id>.nii.gz   — tumour segmentation mask (NIfTI format)
+        <clinical_template>.xls — clinical spreadsheet with patient age
+                                  (filename set in user_vars_config)
+
+  user_vars_config:
+    type: File
+    doc: |
+      User configuration JSON mounted at /tmp/input/configs/user_vars.json.
+      Required fields:
+        model_name (str)              — model filename inside /usr/application/model/
+        clinical_template (str)       — .xls filename present in input_data_dir
+        Debug (bool)                  — reuse cached radiomics CSV from a prior run
+        save_intermediate_data (bool) — write radiomics_results.csv and metadata.csv to output
+        explainability_mode (int)     — 0 = disabled, 1 = enabled
+        explain_method (str)          — "lime" or "anchor"
+
+outputs:
+  results_json:
+    type: File
+    doc: |
+      Classification result written to /tmp/output/results.json. Example:
+        {"pred_label": "III/IV", "prob": "74.50%"}
+      pred_label values:
+        "I/II"   — early stage lung cancer (class 0)
+        "III/IV" — advanced stage lung cancer (class 1)
+    outputBinding:
+      glob: results.json
+
+  png_output_dir:
+    type: Directory
+    doc: |
+      PNG exports written to /tmp/output/pngs/.
+        pngs/*.png     — CT DICOM slice images
+        pngs/*_xai.png — LIME or ANCHOR explanation chart (if explainability_mode=1)
+    outputBinding:
+      glob: pngs
+
+successCodes: [0]
