@@ -1,0 +1,4 @@
+test/.venv*/
+test/__pycache__/
+test/example_input/*/
+test/actual_output/
