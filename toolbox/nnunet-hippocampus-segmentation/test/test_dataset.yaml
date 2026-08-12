@@ -1,0 +1,23 @@
+# Committed derived DICOM integration-test input.
+input_directory: MSD-HIPP-001
+patient_id: MSD-HIPP-001
+study_instance_uid: 2.25.146152767055239946432108331682918111131
+series_instance_uid: 2.25.324409879656453657504744893164015157132
+frame_of_reference_uid: 2.25.290379382106455238400594254815840009342
+modality: MR
+expected_instances: 35
+expected_rows: 51
+expected_columns: 35
+
+source_dataset: Medical Segmentation Decathlon Task04 Hippocampus
+source_nifti: imagesTr/hippocampus_001.nii.gz
+source_sha256: ab47d6115b412ffaba041cbf48962967127f199f39eb56c777a6bb3746353b4a
+license: CC BY-SA 4.0
+license_url: https://creativecommons.org/licenses/by-sa/4.0/
+source_url: https://medicaldecathlon.com/dataaws/
+dataset_citation: https://doi.org/10.1038/s41467-022-30695-9
+
+# The committed DICOM series is a derived test artifact. It was produced from
+# the source NIfTI with pydicom and nibabel, preserving its 1 mm geometry and
+# encoding its voxel intensities as unsigned 16-bit pixels with rescale tags.
+derivation: NIfTI-to-DICOM conversion, version 1
