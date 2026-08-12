@@ -1,0 +1,23 @@
+# Copyright 2025 German Cancer Research Center (DKFZ) and contributors.
+# SPDX-License-Identifier: Apache-2.0
+
+FROM nnunet:base
+
+ARG MULTI_MODAL=False
+LABEL maintainer="ashis.ravindran@dkfz-heidelberg.de"
+LABEL version="1.0"
+LABEL description="nnUNet model pretrained on Task029_LiTS targeting liver and liver tumour."
+
+USER eucaim
+ENV TASK_NAME=Task029_LiTS
+ENV MULTI_MODAL=$MULTI_MODAL
+# Zenodo names the archive/model directory Task029_LITS, while the nnU-Net
+# runtime looks up Task029_LiTS. Keep the runtime task name and add the
+# compatibility path during the image build.
+RUN nnUNet_download_pretrained_model $TASK_NAME
+RUN ln -s /home/eucaim/nnUNet_results_folder/nnUNet/3d_fullres/Task029_LITS \
+         /home/eucaim/nnUNet_results_folder/nnUNet/3d_fullres/Task029_LiTS \
+    && test -d /home/eucaim/nnUNet_results_folder/nnUNet/3d_fullres/Task029_LiTS/nnUNetTrainerV2__nnUNetPlansv2.1
+
+CMD ["/bin/bash", "/app/start_nnunet.sh"]
+HEALTHCHECK --interval=60s --timeout=10s --retries=3 CMD python /app/scripts/health_check.py || exit 1
