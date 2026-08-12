@@ -1,0 +1,11 @@
+brain_pet:
+  enabled: false
+  task: Task169_BrainTumorPET
+  required_modality: PT
+  required_tracer: FET
+  required_acquisition: static
+  status: blocked
+  reason: >
+    A suitable openly available and redistributable human static 18F-FET PET
+    brain-tumour DICOM test series has not yet been identified. Do not
+    substitute FDG, FMISO, or another PET tracer.
