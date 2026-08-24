@@ -1,6 +1,4 @@
 {
-  "model_name": "prostate_brf.joblib",
-  "clinical_template": "Prostate_Cancer_observational.xls",
   "Demo": false,
   "Debug": false,
   "save_intermediate_data": true,

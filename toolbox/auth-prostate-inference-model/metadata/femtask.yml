@@ -35,28 +35,66 @@ requirements:
 # Entrypoint of the standalone (non-API) Dockerfile_not_api.
 # Executed from WORKDIR /usr/application; reads environment paths from
 # src/config/environment_vars_platform.json (baked into the image).
+# clinical_template/t2w_series_uid/adc_series_uid are passed as CLI flags
+# (see inputBinding below) instead of living inside user_vars.json, since
+# FEM can only rewrite paths/filenames that are real CWL inputs, not values
+# buried in file content. The model filename is NOT a CWL input at all:
+# exactly one model ships per image build, so the container discovers it on
+# disk instead of being told its name. MR sequence role (T2W vs ADC) can't be
+# reliably auto-detected from DICOM tags (SeriesDescription is free text and
+# not standardized across sites), so the submitter must declare which
+# series_uid is which explicitly.
 baseCommand: [python3, src/main.py]
 
 inputs:
   - id: input_data_dir
     type: Directory
     doc: |
-      Patient imaging and clinical data directory.
-      Mounted at /tmp/input/data. Required contents:
-        Series-<n>_adc/       — ADC DICOM slices (*.dcm)
-        Series-<n>_t2w/       — T2W DICOM slices (*.dcm)
-        gland-segmentation/   — prostate gland NIfTI mask (*.nii.gz)
-        <clinical_template>.xls — clinical data spreadsheet
+      Patient imaging and clinical data directory, following the EUCAIM CDM.
+      Mounted at /tmp/input/data. Expected contents:
+        imaging_data/<patient_id>/<study_uid>/<series_uid>/*.dcm
+          — one series_uid folder is the T2W series (see t2w_series_uid)
+          — one series_uid folder is the ADC series (see adc_series_uid)
+          — one series_uid folder is the prostate gland segmentation, a
+            single multi-frame DICOM SEG instance (Modality=SEG) referencing
+            the T2W series via ReferencedSeriesSequence
+        <clinical_template> — CDM clinical_mandatory_view.csv-style table,
+          containing at least the patient_id, age and PSA for this patient
     required: true
     hidden: true
     source: connection
+
+  - id: clinical_template
+    type: string
+    doc: Filename of the clinical CSV (e.g. clinical_mandatory_view.csv) present in input_data_dir.
+    required: true
+    hidden: false
+    source: user
+    inputBinding:
+      prefix: --clinical-template
+
+  - id: t2w_series_uid
+    type: string
+    doc: SeriesInstanceUID of the T2W series (the imaging_data/<patient_id>/<study_uid>/<series_uid> folder name).
+    required: true
+    hidden: false
+    source: user
+    inputBinding:
+      prefix: --t2w-series
+
+  - id: adc_series_uid
+    type: string
+    doc: SeriesInstanceUID of the ADC series (the imaging_data/<patient_id>/<study_uid>/<series_uid> folder name).
+    required: true
+    hidden: false
+    source: user
+    inputBinding:
+      prefix: --adc-series
 
   - id: user_vars_config
     type: File
     doc: |
       User configuration JSON. Required fields:
-        model_name (str)              — model filename inside /usr/application/model/
-        clinical_template (str)       — .xls filename present in input_data_dir
         Debug (bool)                  — reuse cached radiomics CSV from a prior run
         save_intermediate_data (bool) — persist radiomics_results.csv and metadata.csv
         explainability_mode (int)     — 0 = disabled, 1 = enabled

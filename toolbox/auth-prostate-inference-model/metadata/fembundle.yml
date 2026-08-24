@@ -29,13 +29,38 @@ shared_inputs:
       - task_id: prostate-cancer-classifier
         task_input_name: input_data_dir
 
+  - id: clinical_template
+    type: string
+    doc: Filename of the clinical CSV (e.g. clinical_mandatory_view.csv) present in input_data_dir.
+    required: true
+    hidden: false
+    targets:
+      - task_id: prostate-cancer-classifier
+        task_input_name: clinical_template
+
+  - id: t2w_series_uid
+    type: string
+    doc: SeriesInstanceUID of the T2W series.
+    required: true
+    hidden: false
+    targets:
+      - task_id: prostate-cancer-classifier
+        task_input_name: t2w_series_uid
+
+  - id: adc_series_uid
+    type: string
+    doc: SeriesInstanceUID of the ADC series.
+    required: true
+    hidden: false
+    targets:
+      - task_id: prostate-cancer-classifier
+        task_input_name: adc_series_uid
+
   - id: user_vars_config
     type: File
     doc: |
       User configuration JSON. Upload a file with the following structure:
         {
-          "model_name": "prostate_brf.joblib",
-          "clinical_template": "<filename>.xls",
           "Debug": false,
           "save_intermediate_data": true,
           "explainability_mode": 1,

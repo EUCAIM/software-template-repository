@@ -36,27 +36,43 @@ requirements:
 # Entrypoint of the standalone (non-API) Dockerfile_not_api.
 # Executed from WORKDIR /usr/application; reads environment paths from
 # src/config/environment_vars_platform.json (baked into the image).
+# clinical_template is passed as a CLI flag (see inputBinding below) instead
+# of living inside user_vars.json, since FEM can only rewrite paths/filenames
+# that are real CWL inputs, not values buried in file content. The model
+# filename is NOT a CWL input at all: exactly one model ships per image
+# build, so the container discovers it on disk instead of being told its name.
 baseCommand: [python3, src/main.py]
 
 inputs:
   - id: input_data_dir
     type: Directory
     doc: |
-      Patient CT imaging and clinical data directory.
-      Mounted at /tmp/input/data. Expected contents (flat directory):
-        *.dcm                 — CT DICOM slices (one series, no subdirectories)
-        <patient_id>.nii.gz   — tumour segmentation mask (NIfTI)
-        <clinical_template>.xls — clinical spreadsheet containing TNM stage
+      Patient imaging and clinical data directory, following the EUCAIM CDM.
+      Mounted at /tmp/input/data. Expected contents:
+        imaging_data/<patient_id>/<study_uid>/<series_uid>/*.dcm
+          — one series_uid folder is the source CT series (Modality=CT)
+          — one series_uid folder is the tumour segmentation, a single
+            multi-frame DICOM SEG instance (Modality=SEG) referencing the
+            CT series via ReferencedSeriesSequence
+        <clinical_template> — CDM clinical_mandatory_view.csv-style table,
+          containing at least the patient_id and cancer stage for this patient
     required: true
     hidden: true
     source: connection
+
+  - id: clinical_template
+    type: string
+    doc: Filename of the clinical CSV (e.g. clinical_mandatory_view.csv) present in input_data_dir.
+    required: true
+    hidden: false
+    source: user
+    inputBinding:
+      prefix: --clinical-template
 
   - id: user_vars_config
     type: File
     doc: |
       User configuration JSON. Required fields:
-        model_name (str)              — model filename inside /usr/application/model/
-        clinical_template (str)       — .xls filename present in input_data_dir
         Debug (bool)                  — reuse cached radiomics CSV from a prior run
         save_intermediate_data (bool) — persist radiomics_results.csv and metadata.csv
         explainability_mode (int)     — 0 = disabled, 1 = enabled
