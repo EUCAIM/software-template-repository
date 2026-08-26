@@ -1,0 +1,78 @@
+- Attribute name: Study Instance UID
+  ID: (0020,000D)
+  Type: Conditionally Required (1C)
+- Attribute name: Series Instance UID
+  ID: (0020,000E)
+  Type: Conditionally Required (1C)
+- Attribute name: Segmentation fractional type
+  ID: (0062,0010)
+  Type: Conditionally Required (1C)
+- Attribute name: Segment algorithm name
+  ID: (0062,0009)
+  Type: Conditionally Required (1C)
+- Attribute name: Series Description
+  ID: (0008,103E)
+  Type: Optional (3)
+- Attribute name: Image Type
+  ID: (0008,0008)
+  Type: Optional (3)
+- Attribute name: Segments overlap
+  ID: (0062,0013)
+  Type: Optional (3)
+- Attribute name: Segment description
+  ID: (0062,0006)
+  Type: Optional (3)
+- Attribute name: Segmented property category Code Sequence
+  ID: (0062,0003)
+  Type: Optional (3)
+- Attribute name: Definition source sequence
+  ID: (0008,1156)
+  Type: Optional (3)
+- Attribute name: Segmentation algorithm identification attribute
+  ID: (0062,0007)
+  Type: Optional (3)
+- Attribute name: Segmented Property Type Modifier Code Sequence
+  ID: (0062,0011)
+  Type: Optional (3)
+- Attribute name: Segmentation type
+  ID: (0062,0001)
+  Type: Required (1)
+- Attribute name: Segment sequence
+  ID: (0062,0002)
+  Type: Required (1)
+- Attribute name: Segment number
+  ID: (0062,0004)
+  Type: Required (1)
+- Attribute name: Segment label
+  ID: (0062,0005)
+  Type: Required (1)
+- Attribute name: Segment algorithm type
+  ID: (0062,0008)
+  Type: Required (1)
+- Attribute name: Segmented property type Code Sequence
+  ID: (0062,000F)
+  Type: Required (1)
+- Attribute name: Segment Identification Sequence
+  ID: (0062,000a)
+  Type: Required (1)
+- Attribute name: Slice Thickness
+  ID: (0018,0050)
+  Type: Required, Empty if Unknown (2)
+- Attribute name: Pixel Spacing
+  ID: (0028,0030)
+  Type: Required, Empty if Unknown (2)
+- Attribute name: Spacing Between Slices
+  ID: (0018,0088)
+  Type: Required, Empty if Unknown (2)
+- Attribute name: Instance Number
+  ID: (0020,0013)
+  Type: Required, Empty if Unknown (2)
+- Attribute name: Laterality
+  ID: (0020,0060)
+  Type: Conditionally Required, Empty if Unknown (2)
+- Attribute name: Manufacturer
+  ID: (0008,0070)
+  Type: Optional (3)
+- Attribute name: Modality
+  ID: (0008,0060)
+  Type: Required (1)

@@ -1,0 +1,2 @@
+subject,Scan Options,Rows,Columns,Pixel Spacing,Bits Allocated,Bits Stored,High Bit,Window Center,Window Width,Rescale Intercept,Rescale Type,Software Versions,Slice Thickness,Private Creator,Manufacturer,Manufacturer's Model Name
+001-000236,HELICAL MODE,512,512,"[0.859375, 0.859375]",16,16,15,40.0,400.0,-1024.0,HU,07MW11.10,1.25, ,GE MEDICAL SYSTEMS,LightSpeed16

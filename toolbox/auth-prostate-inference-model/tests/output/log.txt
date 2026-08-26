@@ -1,0 +1,196 @@
+2026-07-13 08:09:12,394 INFO [featureextractor]: Loading parameter file /usr/application/src/config/exampleMR_3mm.yaml
+2026-07-13 08:09:12,419 INFO [core]: validation.valid
+2026-07-13 08:09:12,980 INFO [featureextractor]: Loading image and mask
+2026-07-13 08:09:13,077 INFO [featureextractor]: Calculating features with label: 1
+2026-07-13 08:09:13,077 INFO [featureextractor]: Loading image and mask
+2026-07-13 08:09:13,233 INFO [imageoperations]: Applying resampling from spacing [0.5 0.5 3.5] and size [384 384  19] to spacing [2. 2. 2.] and size [40, 32, 34]
+2026-07-13 08:09:13,381 INFO [featureextractor]: Computing shape
+2026-07-13 08:09:13,396 INFO [featureextractor]: Adding image type "Original" with custom settings: {}
+2026-07-13 08:09:13,396 INFO [featureextractor]: Adding image type "LoG" with custom settings: {'sigma': [2.0, 3.0, 4.0, 5.0]}
+2026-07-13 08:09:13,396 INFO [featureextractor]: Adding image type "Wavelet" with custom settings: {}
+2026-07-13 08:09:13,396 INFO [featureextractor]: Calculating features for original image
+2026-07-13 08:09:13,399 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,404 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,419 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,423 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,426 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,428 INFO [imageoperations]: Computing LoG with sigma 2
+2026-07-13 08:09:13,448 INFO [featureextractor]: Calculating features for log-sigma-2-0-mm-3D image
+2026-07-13 08:09:13,451 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,455 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,460 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,464 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,466 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,468 INFO [imageoperations]: Computing LoG with sigma 3
+2026-07-13 08:09:13,483 INFO [featureextractor]: Calculating features for log-sigma-3-0-mm-3D image
+2026-07-13 08:09:13,487 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,491 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,496 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,500 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,503 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,505 INFO [imageoperations]: Computing LoG with sigma 4
+2026-07-13 08:09:13,520 INFO [featureextractor]: Calculating features for log-sigma-4-0-mm-3D image
+2026-07-13 08:09:13,522 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,526 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,531 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,535 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,538 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,540 INFO [imageoperations]: Computing LoG with sigma 5
+2026-07-13 08:09:13,553 INFO [featureextractor]: Calculating features for log-sigma-5-0-mm-3D image
+2026-07-13 08:09:13,556 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,560 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,565 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,569 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,572 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,578 INFO [imageoperations]: Computing Wavelet LLH
+2026-07-13 08:09:13,579 INFO [featureextractor]: Calculating features for wavelet-LLH image
+2026-07-13 08:09:13,582 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,586 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,591 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,595 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,598 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,600 INFO [imageoperations]: Computing Wavelet LHL
+2026-07-13 08:09:13,600 INFO [featureextractor]: Calculating features for wavelet-LHL image
+2026-07-13 08:09:13,603 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,608 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,633 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,637 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,640 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,642 INFO [imageoperations]: Computing Wavelet LHH
+2026-07-13 08:09:13,643 INFO [featureextractor]: Calculating features for wavelet-LHH image
+2026-07-13 08:09:13,645 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,649 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,654 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,657 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,660 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,662 INFO [imageoperations]: Computing Wavelet HLL
+2026-07-13 08:09:13,663 INFO [featureextractor]: Calculating features for wavelet-HLL image
+2026-07-13 08:09:13,666 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,669 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,691 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,695 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,698 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,700 INFO [imageoperations]: Computing Wavelet HLH
+2026-07-13 08:09:13,701 INFO [featureextractor]: Calculating features for wavelet-HLH image
+2026-07-13 08:09:13,703 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,707 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,712 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,716 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,719 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,721 INFO [imageoperations]: Computing Wavelet HHL
+2026-07-13 08:09:13,721 INFO [featureextractor]: Calculating features for wavelet-HHL image
+2026-07-13 08:09:13,724 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,728 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,741 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,746 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,749 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,751 INFO [imageoperations]: Computing Wavelet HHH
+2026-07-13 08:09:13,752 INFO [featureextractor]: Calculating features for wavelet-HHH image
+2026-07-13 08:09:13,754 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,758 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,762 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,766 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,768 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,770 INFO [featureextractor]: Calculating features for wavelet-LLL image
+2026-07-13 08:09:13,773 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:13,776 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:13,835 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:13,840 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:13,843 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:13,847 INFO [featureextractor]: Loading image and mask
+2026-07-13 08:09:13,910 INFO [featureextractor]: Calculating features with label: 1
+2026-07-13 08:09:13,911 INFO [featureextractor]: Loading image and mask
+2026-07-13 08:09:13,996 INFO [imageoperations]: Applying resampling from spacing [0.5 0.5 3.5] and size [384 384  19] to spacing [2. 2. 2.] and size [40, 32, 34]
+2026-07-13 08:09:14,019 INFO [featureextractor]: Computing shape
+2026-07-13 08:09:14,029 INFO [featureextractor]: Adding image type "Original" with custom settings: {}
+2026-07-13 08:09:14,030 INFO [featureextractor]: Adding image type "LoG" with custom settings: {'sigma': [2.0, 3.0, 4.0, 5.0]}
+2026-07-13 08:09:14,030 INFO [featureextractor]: Adding image type "Wavelet" with custom settings: {}
+2026-07-13 08:09:14,030 INFO [featureextractor]: Calculating features for original image
+2026-07-13 08:09:14,032 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,036 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,060 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,064 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,067 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,069 INFO [imageoperations]: Computing LoG with sigma 2
+2026-07-13 08:09:14,084 INFO [featureextractor]: Calculating features for log-sigma-2-0-mm-3D image
+2026-07-13 08:09:14,086 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,090 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,097 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,101 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,104 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,106 INFO [imageoperations]: Computing LoG with sigma 3
+2026-07-13 08:09:14,120 INFO [featureextractor]: Calculating features for log-sigma-3-0-mm-3D image
+2026-07-13 08:09:14,122 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,126 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,133 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,138 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,140 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,143 INFO [imageoperations]: Computing LoG with sigma 4
+2026-07-13 08:09:14,158 INFO [featureextractor]: Calculating features for log-sigma-4-0-mm-3D image
+2026-07-13 08:09:14,162 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,165 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,173 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,176 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,179 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,181 INFO [imageoperations]: Computing LoG with sigma 5
+2026-07-13 08:09:14,196 INFO [featureextractor]: Calculating features for log-sigma-5-0-mm-3D image
+2026-07-13 08:09:14,199 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,202 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,210 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,214 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,217 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,222 INFO [imageoperations]: Computing Wavelet LLH
+2026-07-13 08:09:14,223 INFO [featureextractor]: Calculating features for wavelet-LLH image
+2026-07-13 08:09:14,225 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,229 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,238 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,242 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,245 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,247 INFO [imageoperations]: Computing Wavelet LHL
+2026-07-13 08:09:14,247 INFO [featureextractor]: Calculating features for wavelet-LHL image
+2026-07-13 08:09:14,250 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,254 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,279 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,283 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,286 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,288 INFO [imageoperations]: Computing Wavelet LHH
+2026-07-13 08:09:14,288 INFO [featureextractor]: Calculating features for wavelet-LHH image
+2026-07-13 08:09:14,291 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,295 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,300 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,304 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,306 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,309 INFO [imageoperations]: Computing Wavelet HLL
+2026-07-13 08:09:14,309 INFO [featureextractor]: Calculating features for wavelet-HLL image
+2026-07-13 08:09:14,312 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,316 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,327 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,331 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,334 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,336 INFO [imageoperations]: Computing Wavelet HLH
+2026-07-13 08:09:14,336 INFO [featureextractor]: Calculating features for wavelet-HLH image
+2026-07-13 08:09:14,339 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,343 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,347 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,350 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,353 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,356 INFO [imageoperations]: Computing Wavelet HHL
+2026-07-13 08:09:14,356 INFO [featureextractor]: Calculating features for wavelet-HHL image
+2026-07-13 08:09:14,358 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,362 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,371 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,375 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,378 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,380 INFO [imageoperations]: Computing Wavelet HHH
+2026-07-13 08:09:14,380 INFO [featureextractor]: Calculating features for wavelet-HHH image
+2026-07-13 08:09:14,383 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,387 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,390 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,394 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,397 INFO [featureextractor]: Computing gldm
+2026-07-13 08:09:14,399 INFO [featureextractor]: Calculating features for wavelet-LLL image
+2026-07-13 08:09:14,401 INFO [featureextractor]: Computing firstorder
+2026-07-13 08:09:14,405 INFO [featureextractor]: Computing glcm
+2026-07-13 08:09:14,643 INFO [featureextractor]: Computing glrlm
+2026-07-13 08:09:14,648 INFO [featureextractor]: Computing glszm
+2026-07-13 08:09:14,652 INFO [featureextractor]: Computing gldm
