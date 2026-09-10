@@ -1,5 +1,5 @@
 # Fixed, public integration-test input. Do not change these identifiers at runtime.
-collection: PANCREAS-CT
+collection: Pancreas-CT
 patient_id: PANCREAS_0001
 study_instance_uid: 1.2.826.0.1.3680043.2.1125.1.38381854871216336385978062044218957
 series_instance_uid: 1.2.826.0.1.3680043.2.1125.1.68878959984837726447916707551399667
