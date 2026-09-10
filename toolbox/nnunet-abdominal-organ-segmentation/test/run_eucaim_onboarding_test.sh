@@ -16,12 +16,11 @@ set -euo pipefail
 
 # Resolve paths and configuration.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TOOL_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 CONTAINER_RUNTIME="${CONTAINER_RUNTIME:-docker}"
 APP_IMAGE="harbor.eucaim.cancerimage.eu/processing-tools/nnunet-abdominal-organ-segmentation:1.0.0"
 INPUT_DIR="${INPUT_DIR:-${SCRIPT_DIR}/example_input}"
 OUTPUT_DIR="${OUTPUT_DIR:-${SCRIPT_DIR}/actual_output}"
-VENV_DIR="${VENV_DIR:-${TOOL_ROOT}/.venv_onboarding}"
+VENV_DIR="${VENV_DIR:-${SCRIPT_DIR}/.venv_onboarding}"
 
 log() { echo "[nnU-Net Abdominal Organ Segmentation] $*"; }
 fail() { echo "[nnU-Net Abdominal Organ Segmentation] ERROR: $*" >&2; exit 1; }
