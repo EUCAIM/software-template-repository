@@ -28,13 +28,30 @@ inputs:
     default: null
     hidden: false
     source: user
+    inputBinding:
+      position: 1
+      prefix: --input_directory
+      separate: true
+
+  - id: output_directory
+    type: string
+    doc: Directory the DICOM SEG files are written into; FEM supplies its runtime output directory.
+    required: true
+    default: "."
+    hidden: false
+    source: user
+    inputBinding:
+      position: 2
+      prefix: --output_directory
+      separate: true
+      valueFrom: $(runtime.outdir)
 
 outputs:
   - id: segmentations
     type: Directory
-    doc: Output directory containing generated DICOM SEG files.
+    doc: Directory containing the generated DICOM SEG files.
     outputBinding:
-      glob: .
+      glob: segmentations
 
 expectedExitCode: 0
 

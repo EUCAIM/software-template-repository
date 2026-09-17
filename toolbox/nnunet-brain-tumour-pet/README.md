@@ -35,13 +35,15 @@ object.
 
 The task runs on one CUDA-capable GPU. It converts each series to NIfTI, runs
 nnU-Net in `3d_fullres` mode, and writes one DICOM SEG file for every non-empty
-prediction. Output filenames use the source `SeriesInstanceUID` when available,
+prediction into a `segmentations/` subdirectory of the output directory, which
+is the path the FEM task declares as its output. Output filenames use the
+source `SeriesInstanceUID` when available,
 or the first DICOM filename as a fallback. The result is exposed as an output
 directory.
 
 ## FEM metadata
 
-The standalone task, bundle, and workflow are in `metadata/FEM/`. The FEM task
+The standalone task, bundle, and workflow are in `metadata/`. The FEM task
 preserves the image command (`/bin/bash /app/start_nnunet.sh`) and sets
 `nnUNet_input` and `nnUNet_output` to the input directory and FEM runtime
 output directory respectively.

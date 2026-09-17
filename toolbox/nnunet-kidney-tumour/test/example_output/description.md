@@ -1,6 +1,6 @@
 # Expected output
 
-`1.3.6.1.4.1.14519.5.2.1.6919.4624.590821776810782267020376827335.dcm` is the reference DICOM SEG for the fixed `KiTS-00064` input series.
+`segmentations/1.3.6.1.4.1.14519.5.2.1.6919.4624.590821776810782267020376827335.dcm` is the reference DICOM SEG for the fixed `KiTS-00064` input series.
 
 The reference source SeriesInstanceUID is
 `1.3.6.1.4.1.14519.5.2.1.6919.4624.590821776810782267020376827335`.

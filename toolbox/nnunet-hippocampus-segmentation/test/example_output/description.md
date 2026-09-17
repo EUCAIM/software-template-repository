@@ -1,6 +1,6 @@
 # Expected output
 
-`2.25.324409879656453657504744893164015157132.dcm` is the reference DICOM SEG for the committed `MSD-HIPP-001` input series.
+`segmentations/2.25.324409879656453657504744893164015157132.dcm` is the reference DICOM SEG for the committed `MSD-HIPP-001` input series.
 
 The reference source SeriesInstanceUID is
 `2.25.324409879656453657504744893164015157132`.

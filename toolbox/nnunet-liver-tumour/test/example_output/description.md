@@ -1,6 +1,6 @@
 # Expected output
 
-`1.3.6.1.4.1.14519.5.2.1.1706.8374.293161030557588464750309352394.dcm` is the reference DICOM SEG for the fixed `HCC_058` input series.
+`segmentations/1.3.6.1.4.1.14519.5.2.1.1706.8374.293161030557588464750309352394.dcm` is the reference DICOM SEG for the fixed `HCC_058` input series.
 
 The reference source SeriesInstanceUID is
 `1.3.6.1.4.1.14519.5.2.1.1706.8374.293161030557588464750309352394`.

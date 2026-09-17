@@ -1,6 +1,6 @@
 # Expected output
 
-`1.3.6.1.4.1.14519.5.2.1.178383118485844743631088562683595719185.dcm` is the reference DICOM SEG for the fixed `StageII-Colorectal-CT-010` input series.
+`segmentations/1.3.6.1.4.1.14519.5.2.1.178383118485844743631088562683595719185.dcm` is the reference DICOM SEG for the fixed `StageII-Colorectal-CT-010` input series.
 
 The reference source SeriesInstanceUID is
 `1.3.6.1.4.1.14519.5.2.1.178383118485844743631088562683595719185`.

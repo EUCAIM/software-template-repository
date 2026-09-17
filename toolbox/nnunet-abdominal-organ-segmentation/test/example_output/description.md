@@ -1,6 +1,6 @@
 # Expected output
 
-`1.2.826.0.1.3680043.2.1125.1.68878959984837726447916707551399667.dcm` is the reference DICOM SEG for the fixed `PANCREAS_0001` input series.
+`segmentations/1.2.826.0.1.3680043.2.1125.1.68878959984837726447916707551399667.dcm` is the reference DICOM SEG for the fixed `PANCREAS_0001` input series.
 
 The reference source SeriesInstanceUID is
 `1.2.826.0.1.3680043.2.1125.1.68878959984837726447916707551399667`.
