@@ -58,12 +58,12 @@ log "Pulling image: ${APP_IMAGE}"
 # Prepare an empty output directory.
 mkdir -p "${OUTPUT_DIR}"
 [[ -z "$(find "${OUTPUT_DIR}" -mindepth 1 -print -quit)" ]] || fail "Output directory must be empty: ${OUTPUT_DIR}"
-chmod 0777 "${OUTPUT_DIR}"
 
 # Run the container with read-only input and writable output mounts.
 log "Running image with input ${INPUT_DIR}"
 "${CONTAINER_RUNTIME}" run --rm \
   "${GPU_ARGS[@]}" \
+  -e "HOST_UID=$(id -u)" -e "HOST_GID=$(id -g)" \
   -v "${INPUT_DIR}:/home/eucaim/nnUNet_input:ro" \
   -v "${OUTPUT_DIR}:/home/eucaim/nnUNet_output" \
   "${APP_IMAGE}"
