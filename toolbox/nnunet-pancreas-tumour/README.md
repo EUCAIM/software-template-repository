@@ -19,18 +19,33 @@ Harbor image above.
 
 ## Input and output
 
-Provide one directory containing one or more immediate child directories. Each
-child directory is processed as one DICOM series:
+The input directory is given with `--input_directory`. Two layouts are
+accepted, and both are supported directly:
 
 ```text
+# a directory of series subdirectories
 input/
 ├── series-1/
 │   ├── image-0001.dcm
 │   └── image-0002.dcm
 └── series-2/
-    ├── image-0001.dcm
-    └── image-0002.dcm
+    └── image-0001.dcm
+
+# the EUCAIM CDM/FS layout produced by the materialisor
+input/
+└── dataset/
+    └── imaging_data/
+        └── {patient_id}/
+            └── {study_uid}/
+                └── {series_uid}/
+                    └── image-0001.dcm
 ```
+
+Every directory containing `.dcm` files is processed as one series, at any
+depth, so intermediate levels such as the patient and study directories need
+no special handling. Non-DICOM files alongside the images, such as the CDM
+clinical CSVs, are ignored. If no `.dcm` files are found the run fails with a
+non-zero exit code rather than producing no output silently.
 
 Only files with the lowercase `.dcm` extension are processed. Each series must
 contain usable DICOM geometry and enough metadata to construct a DICOM SEG
@@ -64,6 +79,18 @@ bash test/run_eucaim_onboarding_test.sh
 The runner pulls the registered Harbor image and requires a GPU-capable host.
 See [test/README.md](test/README.md) for the automatic setup and output
 handling.
+
+## Logging
+
+The container writes progress to stdout and errors to stderr. The logs contain
+DICOM identifiers: the SeriesInstanceUID and one SOPInstanceUID per source
+instance. Their number therefore scales with the size of the input. They
+contain no patient names, patient identifiers or input paths; under the
+EUCAIM CDM/FS layout the input path would otherwise carry the CDM patient
+identifier.
+
+DICOM Instance UIDs are pseudonymous but linkable, so log capture should apply
+the same retention and access policy as other pseudonymous study data.
 
 ## Network requirements
 

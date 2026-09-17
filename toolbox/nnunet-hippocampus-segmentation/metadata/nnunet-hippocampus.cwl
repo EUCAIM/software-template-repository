@@ -23,7 +23,13 @@ baseCommand: [/bin/bash, /app/start_nnunet.sh]
 inputs:
   - id: dicom_series
     type: Directory
-    doc: Directory whose immediate child directories each contain one MRI DICOM series.
+    doc: >-
+      Input directory of MRI DICOM series. Accepts either a directory of
+      series subdirectories, or
+      the EUCAIM CDM/FS layout
+      (dataset/imaging_data/{patient_id}/{study_uid}/{series_uid}/*.dcm).
+      Every directory containing .dcm files at any depth is processed as one
+      series.
     required: true
     default: null
     hidden: false
