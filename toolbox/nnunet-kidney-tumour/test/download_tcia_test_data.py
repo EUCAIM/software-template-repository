@@ -163,7 +163,14 @@ def publish_series(files: list[tuple[pydicom.Dataset, Path]], destination: Path)
 def target_directory(config: dict[str, Any], output_dir: Path | None) -> Path:
     if output_dir is None:
         return Path(config.get("_config_directory", SCRIPT_DIR)) / str(config["output_directory"])
-    return output_dir / str(config["patient_id"])
+    return (
+        output_dir
+        / "dataset"
+        / "imaging_data"
+        / str(config["patient_id"])
+        / str(config["study_instance_uid"])
+        / str(config["series_instance_uid"])
+    )
 
 
 def download_test_data(config: dict[str, Any], output_dir: Path | None = None, force: bool = False) -> Path:
