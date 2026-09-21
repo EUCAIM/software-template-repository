@@ -18,6 +18,9 @@ Compare the generated result semantically with this reference:
 - it is spatially aligned with the source series.
 
 Do not compare generated DICOM identifiers or timestamps byte-for-byte.
+Voxel masks are reproducible run to run on the same machine, but small
+differences appear across GPU hardware and driver versions. Compare per
+label with a Dice threshold of 0.99 rather than expecting exact equality.
 Input provenance and licence are documented in
 [`../example_input/DATA_LICENSE.md`](../example_input/DATA_LICENSE.md).
 
