@@ -54,8 +54,8 @@ metadata:
   version_control:
     repository: "https://github.com/MIC-DKFZ/nnunet-eucaim-docker"
     branch: "main"
-    commit: "c1bbba939516d0a6c45b89074f018fc5ab566f7d"
-    tag: ""
+    commit: "084b4f1371869b3cc8eeda7d60e14d3d613b5f2a"
+    tag: "1.0.0"
   compliance:
     data_classification: private
     retention_policy:
