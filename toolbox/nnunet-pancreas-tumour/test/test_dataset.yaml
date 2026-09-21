@@ -9,4 +9,4 @@ license: CC BY 3.0
 license_url: https://creativecommons.org/licenses/by/3.0/
 source_url: https://www.cancerimagingarchive.net/collection/pancreas-ct/
 dataset_doi: https://doi.org/10.7937/K9/TCIA.2016.tNB1kqBU
-output_directory: example_input/PANCREAS_0080
+output_directory: example_input/dataset/imaging_data/PANCREAS_0080/1.2.826.0.1.3680043.2.1125.1.60401621965073299400071712795433179/1.2.826.0.1.3680043.2.1125.1.41202274843063370955090296887703130
