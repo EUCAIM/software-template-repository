@@ -38,8 +38,10 @@ The runner supports these environment variables:
 - `OUTPUT_DIR=/absolute/or/relative/output-directory`
 - `VENV_DIR=/absolute/or/relative/virtual-environment`
 
-`INPUT_DIR` must contain one or more immediate child directories, each
-containing one DICOM series. Use a clean output directory for every run.
+`INPUT_DIR` must contain at least one directory holding DICOM files. Both a
+directory of series subdirectories and the EUCAIM CDM/FS layout are accepted,
+and every directory containing `.dcm` files is processed as one series. Use a
+clean output directory for every run.
 
 Shell syntax can be checked locally:
 

@@ -19,7 +19,8 @@ read-only, writes to `actual_output/`, and fails unless the container creates
 at least one output file. `actual_output/` is ignored by Git;
 `example_output/` remains the committed reference.
 
-`INPUT_DIR` must contain immediate child directories, one per DICOM series.
+`INPUT_DIR` must contain at least one directory holding DICOM files. Both a
+directory of series subdirectories and the EUCAIM CDM/FS layout are accepted.
 
 ## Optional paths
 

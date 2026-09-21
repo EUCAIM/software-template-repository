@@ -14,8 +14,8 @@ harbor.eucaim.cancerimage.eu/processing-tools/nnunet-pancreas-tumour:1.0.0
 ```
 
 The Dockerfile records the model-specific final image layer. It is built after
-the shared `nnunet:base` image in the image-build pipeline; FEM uses the final
-Harbor image above.
+the shared `nnunet:base-1.0.0` image in the image-build pipeline; FEM uses the
+final Harbor image above.
 
 ## Input and output
 
@@ -156,7 +156,7 @@ The optional test-data downloader requires outbound HTTPS access to TCIA.
 - Peak memory usage depends primarily on the size of the currently processed
   series. Multiple series are processed sequentially.
 
-Measured on the committed test input (181 instances) on one NVIDIA GPU with 11
+Measured on the test input (181 instances) on one NVIDIA GPU with 11
 GB of memory: runtime 3 minutes 45 seconds, peak GPU memory up to 8 GB.
 
 ### Storage

@@ -11,8 +11,8 @@ harbor.eucaim.cancerimage.eu/processing-tools/nnunet-brain-tumour-pet:1.0.0
 ```
 
 The Dockerfile records the model-specific final image layer. It is built after
-the shared `nnunet:base` image in the image-build pipeline; FEM uses the final
-Harbor image above.
+the shared `nnunet:base-1.0.0` image in the image-build pipeline; FEM uses the
+final Harbor image above.
 
 ## Input and output
 
