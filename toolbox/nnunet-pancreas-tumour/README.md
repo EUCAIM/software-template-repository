@@ -59,6 +59,30 @@ source `SeriesInstanceUID` when available,
 or the first DICOM filename as a fallback. The result is exposed as an output
 directory.
 
+## Usage
+
+```bash
+docker run --rm --gpus all \
+  -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) \
+  -v "$PWD/input:/home/eucaim/nnUNet_input:ro" \
+  -v "$PWD/output:/home/eucaim/nnUNet_output" \
+  harbor.eucaim.cancerimage.eu/processing-tools/nnunet-pancreas-tumour:1.0.0
+```
+
+The input and output paths may also be given as arguments, which is how the
+platform supplies them:
+
+```bash
+  harbor.eucaim.cancerimage.eu/processing-tools/nnunet-pancreas-tumour:1.0.0 \
+  /bin/bash /app/start_nnunet.sh \
+  --input_directory /home/eucaim/nnUNet_input \
+  --output_directory /home/eucaim/nnUNet_output
+```
+
+DICOM SEG files are written to a `segmentations/` subdirectory of the output
+directory. The output directory does not need to be world writable, provided
+`HOST_UID` matches its owner.
+
 ## FEM metadata
 
 The standalone task, bundle, and workflow are in `metadata/`. The FEM task
@@ -132,6 +156,9 @@ The optional test-data downloader requires outbound HTTPS access to TCIA.
 - Peak memory usage depends primarily on the size of the currently processed
   series. Multiple series are processed sequentially.
 
+Measured on the committed test input (181 instances) on one NVIDIA GPU with 11
+GB of memory: runtime 3 minutes 45 seconds, peak GPU memory up to 8 GB.
+
 ### Storage
 
 - Persistent storage is required for the input DICOM series and generated
@@ -151,6 +178,10 @@ The implementation is maintained in the
 The shared base image supplies CUDA 11.8, nnU-Net v1, MITK, and the DICOM/NIfTI
 conversion scripts; the task image downloads the pretrained model at build
 time.
+
+## Contact
+
+Medical Image Computing (MIC), German Cancer Research Center (DKFZ).
 
 ## License
 

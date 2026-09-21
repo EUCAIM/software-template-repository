@@ -27,3 +27,16 @@ absence of DICOM SEG or RTSTRUCT input objects before accepting the download.
 
 See [DATA_LICENSE.md](DATA_LICENSE.md) for collection provenance, license,
 required citations, and the fixed identifiers.
+
+The data is laid out in the EUCAIM CDM/FS structure, matching what the
+materialisor delivers on the platform:
+
+```text
+example_input/
+└── dataset/
+    └── imaging_data/
+        └── {patient_id}/
+            └── {study_uid}/
+                └── {series_uid}/
+                    └── *.dcm
+```
