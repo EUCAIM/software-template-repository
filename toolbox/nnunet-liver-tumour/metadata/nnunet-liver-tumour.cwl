@@ -1,0 +1,70 @@
+cwlVersion: v1.2
+class: FEMTask
+
+id: nnunet-liver-tumour
+label: nnU-Net Liver Tumour
+doc: Segments liver and liver tumour from DICOM series using nnU-Net Task029_LiTS.
+
+requirements:
+  - class: DockerRequirement
+    dockerPull: harbor.eucaim.cancerimage.eu/processing-tools/nnunet-liver-tumour:1.0.0
+  - class: EnvVarRequirement
+    envDef:
+      - envName: nnUNet_input
+        envValue: $(inputs.dicom_series.path)
+      - envName: nnUNet_output
+        envValue: $(runtime.outdir)
+  - class: CUDARequirement
+    cudaVersionMin: "11.8"
+    cudaDeviceCountMin: 1
+
+baseCommand: [/bin/bash, /app/start_nnunet.sh]
+
+inputs:
+  - id: dicom_series
+    type: Directory
+    doc: >-
+      Input directory. Accepts either a directory of series subdirectories, or
+      the EUCAIM CDM/FS layout
+      (dataset/imaging_data/{patient_id}/{study_uid}/{series_uid}/*.dcm).
+      Every directory containing .dcm files at any depth is processed as one
+      series.
+    required: true
+    default: null
+    hidden: false
+    source: user
+    inputBinding:
+      position: 1
+      prefix: --input_directory
+      separate: true
+
+  - id: output_directory
+    type: string
+    doc: Directory the DICOM SEG files are written into; FEM supplies its runtime output directory.
+    required: true
+    default: "."
+    hidden: false
+    source: user
+    inputBinding:
+      position: 2
+      prefix: --output_directory
+      separate: true
+      valueFrom: $(runtime.outdir)
+
+outputs:
+  - id: segmentations
+    type: Directory
+    doc: Directory containing the generated DICOM SEG files.
+    outputBinding:
+      glob: segmentations
+
+expectedExitCode: 0
+
+metadata:
+  author: German Cancer Research Center (DKFZ)
+  version: "1.0"
+  orchestrator:
+    network: overlay
+    additional_metadata:
+      model_task: Task029_LiTS
+      gpu_required: true

@@ -1,0 +1,13 @@
+# Fixed, public integration-test input. Do not change these identifiers at runtime.
+collection: StageII-Colorectal-CT
+patient_id: StageII-Colorectal-CT-010
+study_instance_uid: 1.3.6.1.4.1.14519.5.2.1.125061896252569685697281616068270020371
+series_instance_uid: 1.3.6.1.4.1.14519.5.2.1.178383118485844743631088562683595719185
+modality: CT
+expected_instances: 52
+license: CC BY 4.0
+license_url: https://creativecommons.org/licenses/by/4.0/
+source_url: https://www.cancerimagingarchive.net/collection/stageii-colorectal-ct/
+dataset_doi: https://doi.org/10.7937/P5K5-TG43
+output_directory: example_input/dataset/imaging_data/StageII-Colorectal-CT-010/1.3.6.1.4.1.14519.5.2.1.125061896252569685697281616068270020371/1.3.6.1.4.1.14519.5.2.1.178383118485844743631088562683595719185
+
