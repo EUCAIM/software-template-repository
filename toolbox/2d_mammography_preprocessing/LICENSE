@@ -1,0 +1,40 @@
+Digital Mammography Preprocessing Tool – Limited Use License Agreement - Terms and Conditions
+Version 1.0.0 and above
+© IIS La Fe, Valencia, Spain (HULAFE) – All rights reserved
+
+This software is the intellectual property of the Biomedical Imaging Research Group GIBI230 at La Fe Health Research Institute (GIBI230-IISLAFE), hereinafter referred to as "HULAFE". It is provided as part of the EUCAIM project under a restricted-use license agreement.
+
+By accessing and using the Tool, users confirm acceptance of these License Terms and Conditions. If users do not agree to these terms, they must refrain from using the Tool.
+
+License:
+This software is licensed, not sold. It is provided free of charge for academic and research use within the EUCAIM project context, exclusively for preprocessing and quality enhancement of digital mammography DICOM images before their federation or upload to the EUCAIM imaging data atlas (reference nodes).
+
+The software is partially inspired by the principles of the CC-BY-NC-ND-4.0 (https://spdx.org/licenses/CC-BY-NC-ND-4.0). However, its use is governed by additional custom restrictions described below.
+
+Restrictions:
+- Commercial use, redistribution, or integration into any product or service (commercial or institutional) is strictly prohibited without prior written consent from HULAFE.
+- Use is strictly limited to the scope of the EUCAIM project. Use in future European public research infrastructures, including any resulting EDIC entity, is permitted provided that attribution is preserved and prior notification is sent to HULAFE.
+- Copying, sublicensing, or modifying the software, in whole or in part, is not permitted unless otherwise authorized.
+- Reverse engineering or extracting parts of the code for use in other tools is prohibited.
+
+Disclaimer:
+- The software is provided "as-is" without warranty of any kind, express or implied.
+- HULAFE assumes no responsibility for the legal or ethical handling of the data processed with this tool. Full responsibility lies with the Data Holder (end-user).
+- The developers are not responsible for configuration errors, incompatibility with local datasets, or failures arising from incorrect usage.
+- The tool is optional and intended to assist — not replace — manual validation of imaging data quality.
+
+Legal Protection:
+This software is the intellectual property of IIS La Fe and GIBI230 Research Group. All rights are reserved under Spanish and international copyright law.
+
+Developers:
+Manuel Marfil-Trujillo, Pedro Miguel Martínez-Gironés, Luis Marti-Bonmati
+GIBI230 Research Group
+La Fe Health Research Institute (IIS La Fe)
+Valencia, Spain
+
+Contact for permissions, licensing, or questions:
+gibi230@iislafe.es
+
+https://www.iislafe.es/en/
+https://www.acim.lafe.san.gva.es/acim
+https://cancerimage.eu/
