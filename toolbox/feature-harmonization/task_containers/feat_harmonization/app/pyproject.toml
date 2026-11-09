@@ -1,0 +1,16 @@
+[project]
+name = "feat_harmonization"
+version = "1.5.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name="Elisavet Stamoulou"},
+    { name="Aikaterini Dovrou"}
+]
+requires-python = ">=3.9"
+dependencies = [
+    "neurocombat==0.2.12",
+    "numpy==1.22.3",
+    "pandas==1.2.4",
+    "pydicom==2.3.0",
+]
