@@ -1,0 +1,65 @@
+FROM pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime
+
+# EUCAIM Metadata Labels
+LABEL org.opencontainers.image.title="Pediatric Brain Tumor Segmenter"
+LABEL org.opencontainers.image.description="Inference engine for Pediatric Brain MRI Segmentation (BraTS 2025)"
+LABEL org.opencontainers.image.authors="Children's National Hospital Team"
+LABEL org.opencontainers.image.source="https://github.com/Precision-Medical-Imaging-Group/BraTS2025"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.version="1.0.0"
+
+# Install system dependencies
+RUN apt-get -y update && \
+    apt-get -y install git gcc nano && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create project directory
+WORKDIR /project
+
+# Copy requirements and install scripts first to leverage cache
+COPY ./requirements.txt /project/requirements.txt
+COPY ./install_nnunet.sh /project/install_nnunet.sh
+COPY ./install_mednext.sh /project/install_mednext.sh
+
+# Install custom libraries
+RUN bash /project/install_nnunet.sh
+RUN bash /project/install_mednext.sh
+
+# Install python dependencies
+# Install numpy first to avoid build isolation issues with pyradiomics
+RUN pip3 install --no-cache-dir numpy==1.26.4 && \
+    pip3 install --no-cache-dir --no-build-isolation -r /project/requirements.txt
+
+# Copy artifacts and weights
+COPY ./kmeans-cluster-artifacts /project/kmeans-cluster-artifacts
+COPY ./weights/name.json /project/weights/name.json
+# Note: The following zip files must be present in the build context
+COPY ./weights/BraTS2025-PED_nnUNetv2_model.zip  /project/weights/
+COPY ./weights/BraTS2025-PED_MedNeXt_model.zip /project/weights/
+COPY ./weights/BraTS2025-PED_nnUNetv2-ResEnc_model.zip /project/weights/
+
+# Copy source code
+COPY ./ensembler /project/ensembler
+COPY ./nnunet /project/nnunet
+COPY ./mednext /project/mednext
+COPY ./postproc /project/postproc
+COPY ./pp_radiomics /project/pp_radiomics
+COPY ./default_mask /project/default_mask
+COPY ./fops /project/fops
+COPY ./pp_cluster /project/pp_cluster
+COPY ./runner.py /project/runner.py
+
+# Create input/output directories and set permissions for non-root user
+RUN mkdir -p /input /output && \
+    chmod 777 /input /output && \
+    chmod -R 777 /project
+
+# Create a non-root user
+RUN useradd -m -u 1000 appuser
+USER appuser
+
+ENV LANG=C.UTF-8
+ENV PYTHONPATH=/project
+
+# Entrypoint
+CMD ["python", "runner.py", "-i", "/input", "-o", "/output", "-t", "PED"]

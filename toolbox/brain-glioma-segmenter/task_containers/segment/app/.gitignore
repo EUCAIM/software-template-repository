@@ -1,0 +1,4 @@
+mlcube_project23/checkpoints/*
+mlcube_project24/checkpoints/*
+*.pyc
+__pycache__/

@@ -1,0 +1,10 @@
+{
+    "weights_urls": {
+        "all_weights.zip": "https://huggingface.co/dani-capellan/eucaim-brain-glioma-weights/resolve/main/all_weights.zip"
+    },
+      "weights_md5": {
+        "all_weights.zip": "2b48baa0204ec1e2bc4d6c4071942626"
+    },
+    "check_extracted": "nnUNet",
+    "dest_dir": "/mlcube_inferer/checkpoints"
+}

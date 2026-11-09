@@ -1,0 +1,3 @@
+setting:
+    geometryTolerance: 10
+    normalize: True

@@ -1,0 +1,11 @@
+pillow
+pyradiomics
+numpy==1.26.4
+nibabel==5.3.2
+synapseclient==4.8.0
+connected-components-3d==3.23.0
+pyradiomics==3.0.1
+pandas==2.3.0
+scikit-learn==1.6.1
+matplotlib
+pyrobex
