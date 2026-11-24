@@ -1,0 +1,8 @@
+{
+  "Demo": false,
+  "Debug": false,
+  "save_intermediate_data": true,
+  "explainability_mode": 1,
+  "explain_method": "lime",
+  "dwi_image_type": true
+}

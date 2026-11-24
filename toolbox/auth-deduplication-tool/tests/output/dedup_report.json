@@ -1,0 +1,89 @@
+{
+  "counts": {
+    "files_total": 1670,
+    "series_total": 10,
+    "errors": 0,
+    "intra_series_dups": 0,
+    "cross_series_dups": 409,
+    "candidate_pairs": 24,
+    "unique_hashes": 6,
+    "hash_duplicate_groups": 2
+  },
+  "examples": {
+    "intra_dup": null,
+    "cross_dup": {
+      "sop_uid": "1.3.6.1.4.1.32722.99.99.203084624127779020961052891156116200549",
+      "locations": [
+        {
+          "series": {
+            "patient_id": "LUNG1-103",
+            "series_uid": "1.3.6.1.4.1.32722.99.99.288093135410004864232396686062233197766"
+          },
+          "path": "/home/eucaim/datasets/LUNG1-103/08-28-2006-StudyID-NA-69457/0.000000-NA-97766/1-010.dcm"
+        },
+        {
+          "series": {
+            "patient_id": "SynPatient103_A",
+            "series_uid": "1.2.826.0.1.3680043.8.498.94626843531447583268945473904845112728"
+          },
+          "path": "/home/eucaim/datasets/LUNG1-103A/SynPatient103_A_slice_10.dcm"
+        },
+        {
+          "series": {
+            "patient_id": "SynPatient103_A",
+            "series_uid": "1.2.826.0.1.3680043.8.498.7984951816817403222819302425047868410"
+          },
+          "path": "/home/eucaim/datasets/LUNG1-104A/SynPatient103_A_slice_10.dcm"
+        },
+        {
+          "series": {
+            "patient_id": "SynPatient103_B",
+            "series_uid": "1.2.826.0.1.3680043.8.498.27005340562336278776978548999511697105"
+          },
+          "path": "/home/eucaim/datasets/LUNG1_103B/SynPatient103_B_slice_10.dcm"
+        },
+        {
+          "series": {
+            "patient_id": "SynPatient103_B",
+            "series_uid": "1.2.826.0.1.3680043.8.498.54975846724616176698203460801343218205"
+          },
+          "path": "/home/eucaim/datasets/LUNG1_104B/SynPatient103_B_slice_10.dcm"
+        }
+      ]
+    },
+    "hash_dup": {
+      "hash": "b2ad2efffbb3deafce9deb7fe5716aca0f2ec4b6",
+      "series": [
+        {
+          "patient_id": "SynPatient103_B",
+          "series_uid": "1.2.826.0.1.3680043.8.498.54975846724616176698203460801343218205"
+        },
+        {
+          "patient_id": "SynPatient103_A",
+          "series_uid": "1.2.826.0.1.3680043.8.498.7984951816817403222819302425047868410"
+        },
+        {
+          "patient_id": "SynPatient103_A",
+          "series_uid": "1.2.826.0.1.3680043.8.498.94626843531447583268945473904845112728"
+        },
+        {
+          "patient_id": "SynPatient103_B",
+          "series_uid": "1.2.826.0.1.3680043.8.498.27005340562336278776978548999511697105"
+        }
+      ]
+    }
+  },
+  "pixel_similarity": {
+    "counts": {
+      "pairs_tested": 17,
+      "near_duplicates": 0
+    },
+    "examples": [],
+    "metrics_used": [
+      "ssim",
+      "cosine",
+      "mad"
+    ],
+    "threshold": 0.95
+  }
+}
