@@ -20,12 +20,11 @@ A EUCAIM tools can consist of one or a set of tasks, where a separate Docker ima
 
 The platform requires containers to:
 
-* Run applications as a non-root user.
-* Support dynamic UID/GID assignment at runtime.
-* Preserve platform security controls implemented in the provided entrypoint.
-* Allow application-specific startup commands through Docker `CMD`.
-* Read node's data from a infra-specific path
-* Write application's output in a infra-specific path
+* Support dynamic UID/GID assignment at runtime. The runtime user is set by whoever starts the container (FEM, Jobman or a person running it by hand).
+* Not to have entrypoint.sh, and any use of `gosu`, `su` or `sudo`.
+* Set the task's base command as an exec-form `ENTRYPOINT`, e.g. `ENTRYPOINT ["python", "/app/run.py"]`, and set no `CMD`.
+* Read node's data from a infra-specific path (e.g.: “--input_directory /example/path”)
+* Write application's output in a infra-specific path (e.g.: “--output_file /path/example.json”)
 
 Tool providers are free to build images using their own CI/CD pipelines.
 
@@ -38,8 +37,7 @@ Tool providers are free to build images using their own CI/CD pipelines.
 │   ├── task_containers/
 │   │   ├── container_name_task-A
 |   │   │   ├── dockerfile
-|   │   │   ├── app/
-|   │   │   └── entrypoint.sh
+|   │   │   └── app/
 │   │   ├── another_task_cotainer
 │   │   └── ...
 │   ├── metadata/
@@ -61,7 +59,6 @@ Tool providers are free to build images using their own CI/CD pipelines.
 | `LICENSE`                      | License terms and conditions governing the use, distribution, and modification of this project.                                                              |
 | `task_containers`    |  Contains one or more task-specific container implementations. Each task container includes the Dockerfile, application source code, and the entrypoint.sh required to build and execute the container. |
 | `task_containers/container_name_task-A/dockerfile`    | Reference Dockerfile to build your application image.                                                       |
-| `task_containers/container_name_task-A/entrypoint.sh` | Platform-managed startup script. Performs runtime user configuration and launches the application securely. |
 | `task_containers/container_name_task-A/app/`          | Place your application source code, binaries, scripts, and assets here.                                     |
 | `metadata`    | Contains tool descriptors and metadata required for integration with the EUCAIM platform (e.g., CWL descriptors, workflow definitions, and execution metadata).                                                        |
 | `docs/`                        | Optional documentation for your application.                                                                |
@@ -71,48 +68,28 @@ Tool providers are free to build images using their own CI/CD pipelines.
 
 ## Important Requirements
 
-#### Do Not Modify `entrypoint.sh`
+#### Do Not Set `CMD`
 
-The provided `entrypoint.sh` is responsible for:
+Set the task's base command as an exec-form `ENTRYPOINT`, e.g. `ENTRYPOINT ["python", "/app/run.py"]`, and set no `CMD`
 
-* Creating or updating the runtime user.
-* Mapping host UID and GID values.
-* Fixing file ownership where required.
-* Dropping root privileges.
-* Launching the application as a non-root user.
+#### Define base command in the CWL
 
-The platform relies on this behavior for security and compatibility.
-
-Application providers should not replace or bypass this script.
-
+`baseCommand` in `metadata/FEM/<task>.cwl` must be exactly the Dockerfile's `ENTRYPOINT`, e.g. `baseCommand: [python, /app/run.py]`.
 
 ## How Application Startup Works
 
 The template uses the following pattern:
 
 ```dockerfile
-ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["python3", "/app/main.py"]
+ENTRYPOINT ["python", "/app/run.py"]
 ```
 
 At container startup:
 
-1. `entrypoint.sh` executes first.
-2. Runtime UID/GID mappings are applied.
-3. A non-root user is configured.
-4. The command specified by `CMD` is executed using `gosu`.
+- [ ] **No `entrypoint.sh`.** Remove it, and any use of `gosu`, `su` or `sudo`. The runtime user is set by whoever starts the container (FEM, Jobman or a person running it by hand).
 
-Example:
-
-```dockerfile
-CMD ["python3", "/app/script.py"]
-```
-
-Results in:
-
-```bash
-gosu application-user python3 /app/script.py
-```
+1. The runtime user is set by whoever starts the container (FEM, Jobman or a person running it by hand)
+2. The command specified by `ENTRYPOINT` is executed, followed by the runtime arguments.
 
 
 ## Creating Your Application Container
@@ -135,16 +112,15 @@ Example:
 FROM ubuntu:24.04
 
 RUN apt-get update && \
-    apt-get install -y python3 python3-pip gosu
+    apt-get install -y python3 python3-pip 
 
 COPY entrypoint.sh /app/entrypoint.sh
 COPY app/ /app/
 
-RUN chown -R root:root /app && chmod 755 /app/main.py /app/entrypoint.sh
+RUN chown -R root:root /app && chmod 755 /app/main.py
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["python", "/app/run.py"]
 
-CMD ["python3", "/app/server.py"]
 ```
 
 ### Step 3: Define Your Startup Command
@@ -155,31 +131,20 @@ Examples:
 
 ##### Python application
 ```dockerfile
-CMD ["python3", "/app/server.py"]
+ENTRYPOINT ["python3", "/app/server.py"]
 ```
 ##### Node.js application
 ```dockerfile
-CMD ["node", "/app/index.js"]
+ENTRYPOINT ["node", "/app/index.js"]
 ```
 ##### Java application
 ```dockerfile
-CMD ["java", "-jar", "/app/application.jar"]
+ENTRYPOINT ["java", "-jar", "/app/application.jar"]
 ```
 ##### Custom executable
 ```dockerfile
-CMD ["/app/bin/my-service"]
+ENTRYPOINT ["/app/bin/my-service"]
 ```
-
-The platform injects runtime values used by the entrypoint:
-
-| Variable    | Description                                           |
-| ----------- | ----------------------------------------------------- |
-| `HOST_UID`  | User ID that should own and execute the application.  |
-| `HOST_GID`  | Group ID that should own and execute the application. |
-| `HOST_USER` | Runtime username created inside the container.        |
-
-These values are managed automatically by the platform and should not be hardcoded.
-
 
 ### Step 4: Building the Docker Image
 
