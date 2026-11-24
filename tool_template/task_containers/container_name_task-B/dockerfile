@@ -31,17 +31,14 @@ WORKDIR /app
 
 # Copy the tool code into the container
 COPY ./app/ /app/
-COPY ./entrypoint.sh /app/entrypoint.sh
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Set any necessary executable permissions for non-root user
-RUN chown -R root:root /app && chmod 755 /app/script.py /app/entrypoint.sh
+RUN chown -R root:root /app && chmod 755 /app/script.py
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["python", "script.py"]
 
-# Default command (can be overridden by the platform at runtime)
-CMD ["python", "script.py"]
 
 
