@@ -86,14 +86,14 @@ def compute_statistics(dataset_path):
     return stats
     
 
-if __name__ == "__main__":
-    dataset_path = sys.argv[1] # Path to local dataset
-    output_path = sys.argv[2]  # Where to store the output JSON
+# if __name__ == "__main__":
+#     dataset_path = sys.argv[1] # Path to local dataset
+#     output_path = sys.argv[2]  # Where to store the output JSON
     
-    stats = compute_statistics(dataset_path)
+#     stats = compute_statistics(dataset_path)
     
-    with open(output_path, 'w') as fw:
-        json.dump(stats, fw, indent = 2)
+#     with open(output_path, 'w') as fw:
+#         json.dump(stats, fw, indent = 2)
     
-    print(f"Processed {dataset_path} and saved stats to {output_path}")
+#     print(f"Processed {dataset_path} and saved stats to {output_path}")
     
