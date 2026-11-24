@@ -15,16 +15,16 @@ tasks:
       doc: One aggregator combines the runner outputs.
 
 shared_inputs:
-  - id: runner_jsons
-    type: File[]
-    doc: JSON summary files produced by the runner.
+  - id: runner_jsons_dir
+    type: Directory
+    doc: Directory containing the JSON summary files produced by the runner.
     required: true
     default: null
     hidden: true
     constraints: {}
     targets:
       - task_id: federated-unbalance-aggregator
-        task_input_name: runner_jsons
+        task_input_name: runner_jsons_dir
 
 shared_outputs:
   - id: report
