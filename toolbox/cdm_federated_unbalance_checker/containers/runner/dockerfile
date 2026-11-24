@@ -20,7 +20,7 @@ RUN groupadd -g $USER_GID eucaim && \
 
 # Install system dependencies (if needed)
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends git gosu \
+    apt-get install -y --no-install-recommends git \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
@@ -33,9 +33,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the source code
 COPY ./app/ /app/
-COPY ./entrypoint.sh /app/entrypoint.sh
 
 # Set any necessary executable permissions for non-root user
-RUN chown -R root:root /app && chmod 755 /app/main.py /app/entrypoint.sh
+RUN chown -R root:root /app && chmod 755 /app/main.py
 
 ENTRYPOINT ["python", "main.py"]
