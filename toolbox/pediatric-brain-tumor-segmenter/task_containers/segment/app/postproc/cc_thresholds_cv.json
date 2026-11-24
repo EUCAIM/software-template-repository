@@ -1,0 +1,485 @@
+{
+    "BraTS-GLI-PRE": {
+        "cluster_0": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 200
+            }
+        },
+        "cluster_1": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 75
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 50
+            }
+        },
+        "cluster_2": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 75
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 300
+            }
+        },
+        "cluster_3": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 275
+            }
+        },
+        "cluster_4": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 350
+            }
+        },
+        "cluster_5": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 425
+            }
+        },
+        "cluster_6": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 25
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 400
+            }
+        },
+        "cluster_7": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 500
+            }
+        },
+        "cluster_8": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 425
+            }
+        }
+    },
+    "BraTS-GLI-POST": {
+        "cluster_0": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 375
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 375
+            }
+        },
+        "cluster_1": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 500
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 50
+            }
+        },
+        "cluster_2": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 50
+            }
+        },
+        "cluster_3": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 50
+            }
+        },
+        "cluster_4": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 375
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 375
+            }
+        },
+        "cluster_5": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 450
+            }
+        },
+        "cluster_6": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 175
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 225
+            }
+        },
+        "cluster_7": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 25
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 125
+            }
+        },
+        "cluster_8": {
+            "label_1": {
+                "th": 400
+            },
+            "label_2": {
+                "th": 225
+            },
+            "label_3": {
+                "th": 50
+            },
+            "label_4": {
+                "th": 250
+            }
+        }
+    },
+    "BraTS-PED": {
+        "cluster_0": {
+            "label_1": {
+                "th": 325
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 500
+            },
+            "label_4": {
+                "th": 475
+            }
+        },
+        "cluster_1": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 25
+            },
+            "label_4": {
+                "th": 250
+            }
+        },
+        "cluster_2": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 500
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 500
+            }
+        },
+        "cluster_3": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 500
+            },
+            "label_3": {
+                "th": 25
+            },
+            "label_4": {
+                "th": 175
+            }
+        },
+        "cluster_4": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 0
+            }
+        },
+        "cluster_5": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 0
+            }
+        },
+        "cluster_6": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 500
+            },
+            "label_4": {
+                "th": 400
+            }
+        },
+        "cluster_7": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 475
+            }
+        },
+        "cluster_8": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 400
+            }
+        }
+    },
+    "BraTS-MEN": {
+        "cluster_0": {
+            "label_1": {
+                "th": 350
+            },
+            "label_2": {
+                "th": 475
+            },
+            "label_3": {
+                "th": 100
+            }
+        },
+        "cluster_1": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 400
+            },
+            "label_3": {
+                "th": 100
+            }
+        },
+        "cluster_2": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 375
+            },
+            "label_3": {
+                "th": 350
+            }
+        }
+    },
+    "BraTS-MEN-RT": {
+        "cluster_0": {
+            "label_1": {
+                "th": 75
+            }
+        },
+        "cluster_1": {
+            "label_1": {
+                "th": 325
+            }
+        },
+        "cluster_2": {
+            "label_1": {
+                "th": 0
+            }
+        }
+    },
+    "BraTS-MEN-RTs": {
+        "cluster_0": {
+            "label_1": {
+                "th": 50
+            }
+        },
+        "cluster_1": {
+            "label_1": {
+                "th": 25
+            }
+        },
+        "cluster_2": {
+            "label_1": {
+                "th": 75
+            }
+        }
+    },
+    "BraTS-MET": {
+        "cluster_0": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 25
+            },
+            "label_3": {
+                "th": 25
+            },
+            "label_4": {
+                "th": 375
+            }
+        },
+        "cluster_1": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 25
+            },
+            "label_3": {
+                "th": 75
+            },
+            "label_4": {
+                "th": 500
+            }
+        }
+    }
+}

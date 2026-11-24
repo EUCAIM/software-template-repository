@@ -1,0 +1,9 @@
+*.zip
+*.pth
+*.ckpt
+*.onnx
+*.pt
+weights/
+checkpoints/
+__pycache__/
+*.pyc

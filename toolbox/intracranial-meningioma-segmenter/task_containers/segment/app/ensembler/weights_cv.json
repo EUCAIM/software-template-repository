@@ -1,0 +1,22 @@
+{
+    "PED":{
+        "nnUNetv2": 0.331797149,
+        "nnUNetv2_ResEnc": 0.331405329,
+        "MedNeXt": 0.336797522
+    },
+    "MEN-RT": {
+        "nnUNetv2": 0.335988596,
+        "nnUNetv2_ResEnc": 0.337749455,
+        "MedNeXt": 0.326261949
+    },
+    "MEN": {
+        "nnUNetv2": 0.323433293,
+        "nnUNetv2_ResEnc": 0.32593088,
+        "MedNeXt": 0.350635826
+    },
+    "MET": {
+        "nnUNetv2": 0.294946939,
+        "nnUNetv2_ResEnc": 0.296066403,
+        "MedNeXt": 0.408986657
+    }
+}

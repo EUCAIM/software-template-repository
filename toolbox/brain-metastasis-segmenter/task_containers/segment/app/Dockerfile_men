@@ -1,0 +1,41 @@
+FROM pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime
+RUN apt-get -y update
+RUN apt-get -y install git
+RUN apt-get -y install gcc
+RUN apt-get -y install nano
+
+COPY ./kmeans-cluster-artifacts /project/kmeans-cluster-artifacts
+COPY ./requirements.txt /project/requirements.txt
+
+COPY ./install_nnunet.sh /project/install_nnunet.sh
+COPY ./install_mednext.sh /project/install_mednext.sh
+RUN bash /project/install_nnunet.sh
+RUN bash /project/install_mednext.sh
+RUN pip3 install --no-cache-dir -r /project/requirements.txt
+RUN pip3 install --upgrade --force-reinstall numpy
+
+COPY ./weights/BraTS2025-MEN_nnUNetv2_model.zip  /project/weights/
+COPY ./weights/BraTS2025-MEN_MedNeXt_model.zip /project/weights/
+COPY ./weights/BraTS2025-MEN_nnUNetv2-ResEnc_model.zip /project/weights/
+
+COPY ./ensembler /project/ensembler
+COPY ./nnunet /project/nnunet
+COPY ./mednext /project/mednext
+COPY ./postproc /project/postproc
+#COPY ./pp_cluster /project/pp_cluster
+COPY ./pp_radiomics /project/pp_radiomics
+COPY ./weights/name.json /project/weights/name.json
+COPY ./default_mask /project/default_mask
+COPY ./fops /project/fops
+#COPY ./templates /project/templates
+
+
+
+# MODIFY here
+# mlcube>> mlcube.yaml>>L11
+COPY ./pp_cluster /project/pp_cluster
+COPY ./runner.py /project/runner.py
+
+ENV LANG=C.UTF-8
+WORKDIR /project/
+CMD ["python", "runner.py", "-i", "/input", "-o", "/output", "-t", "MEN"]
