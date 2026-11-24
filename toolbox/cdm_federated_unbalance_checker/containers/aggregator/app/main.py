@@ -18,6 +18,7 @@ logger.addHandler(handler)
 
 def run_aggregator(input_paths, output_path):
     logger.info(f"Aggregating results from: {input_paths}")
+    print(type(input_paths))
     stats_list = load_stats(input_paths)
     report_json = detect_imbalance(stats_list)
     with open(os.path.join(output_path, "report.json"), "w") as f:
@@ -30,7 +31,8 @@ def main():
 
     parser = argparse.ArgumentParser(description="Federated Unbalance Checker Aggregator")
 
-    parser.add_argument("-i", "--input", required=True, nargs="+", help="List of runner output JSONs (paths relative to DATA_PATH if not absolute)")
+    # parser.add_argument("-i", "--input", required=True, nargs="+", help="List of runner output JSONs (paths relative to DATA_PATH if not absolute)")
+    parser.add_argument("-i", "--input", required=True, help="List of runner output JSONs (paths relative to DATA_PATH if not absolute)")
     parser.add_argument("-o", "--output", required=True, help="Path to aggregated output JSON (relative to DATA_PATH if not absolute)")
 
     args = parser.parse_args()
