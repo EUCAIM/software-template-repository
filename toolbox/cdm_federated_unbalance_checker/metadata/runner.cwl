@@ -10,9 +10,9 @@ requirements:
     dockerPull: harbor.eucaim.cancerimage.eu/processing-tools/federated-unbalance-runner:latest
 
 inputs:
-  dataset_dir:
-    type: Directory
-    doc: Input dataset directory containing clinical_mandatory_view.csv.
+  dataset_dirs:
+    type: Directory[]
+    doc: List of input dataset directories containing clinical_mandatory_view.csv.
     required: true
     default: null
     hidden: false
@@ -22,9 +22,9 @@ inputs:
       prefix: -i
       separate: true
   
-  json_file:
+  output_dir:
     type: string
-    doc: Name of the JSON summary file to be produced.
+    doc: Directory where the JSON summary files for datasets will be written.
     required: true
     default: null
     hidden: false
@@ -33,14 +33,14 @@ inputs:
       position: 2
       prefix: -o
       separate: true
-      valueFrom: $(runtime.outdir)/$(self)
+      valueFrom: $(runtime.outdir)
 
 outputs:
   runner_json:
-    type: File
-    doc: JSON summary generated for the input dataset.
+    type: File[]
+    doc: JSON summary files generated for the input datasets.
     outputBinding:
-      glob: $(inputs.json_file)
+      glob: "*.json"
 
 baseCommand: [python, main.py]
 
