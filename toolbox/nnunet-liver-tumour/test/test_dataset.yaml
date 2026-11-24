@@ -1,0 +1,12 @@
+# Fixed, public integration-test input. Do not change these identifiers at runtime.
+collection: HCC-TACE-Seg
+patient_id: HCC_058
+study_instance_uid: 1.3.6.1.4.1.14519.5.2.1.1706.8374.140157207079358537315830346422
+series_instance_uid: 1.3.6.1.4.1.14519.5.2.1.1706.8374.293161030557588464750309352394
+modality: CT
+expected_instances: 119
+license: CC BY 4.0
+license_url: https://creativecommons.org/licenses/by/4.0/
+source_url: https://www.cancerimagingarchive.net/collection/hcc-tace-seg/
+dataset_doi: https://doi.org/10.7937/TCIA.5FNA-0924
+output_directory: example_input/dataset/imaging_data/HCC_058/1.3.6.1.4.1.14519.5.2.1.1706.8374.140157207079358537315830346422/1.3.6.1.4.1.14519.5.2.1.1706.8374.293161030557588464750309352394

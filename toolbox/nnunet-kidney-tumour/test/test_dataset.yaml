@@ -1,0 +1,14 @@
+# Fixed, public integration-test input. Do not change these identifiers at runtime.
+collection: C4KC-KiTS
+patient_id: KiTS-00064
+study_instance_uid: 1.3.6.1.4.1.14519.5.2.1.6919.4624.426808144755443911740916876208
+series_instance_uid: 1.3.6.1.4.1.14519.5.2.1.6919.4624.590821776810782267020376827335
+modality: CT
+expected_instances: 53
+license: CC BY 3.0
+license_url: https://creativecommons.org/licenses/by/3.0/
+source_citation: The Cancer Imaging Archive (TCIA), C4KC-KiTS
+source_url: https://www.cancerimagingarchive.net/collection/c4kc-kits/
+dataset_doi: https://doi.org/10.7937/TCIA.2019.IX49E8NX
+data_derivation: DICOM images downloaded from TCIA without modification.
+output_directory: example_input/dataset/imaging_data/KiTS-00064/1.3.6.1.4.1.14519.5.2.1.6919.4624.426808144755443911740916876208/1.3.6.1.4.1.14519.5.2.1.6919.4624.590821776810782267020376827335

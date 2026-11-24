@@ -1,0 +1,8 @@
+Apache License 2.0
+
+Copyright 2025 German Cancer Research Center (DKFZ) and contributors.
+
+This package describes and references the nnU-Net Kidney Tumour
+container. The corresponding source implementation is licensed under the
+Apache License, Version 2.0. A copy of the license is available at
+https://www.apache.org/licenses/LICENSE-2.0.

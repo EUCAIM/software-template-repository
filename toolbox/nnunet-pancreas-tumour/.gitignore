@@ -1,0 +1,6 @@
+
+# Local Python environment and bytecode
+test/.venv_onboarding/
+test/__pycache__/
+test/example_input/*/
+test/actual_output/
