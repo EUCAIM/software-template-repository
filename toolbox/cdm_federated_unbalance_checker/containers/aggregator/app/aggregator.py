@@ -3,9 +3,13 @@
 import json
 import sys
 import pandas as pd
+import os 
 
 def load_stats(json_paths):
-    return [json.load(open(path)) for path in json_paths]
+    if isinstance(json_paths, list):
+        return [json.load(open(path)) for path in json_paths]
+    else:
+        return [json.load(open(os.path.join(json_paths, path))) for path in os.listdir(json_paths) if path.endswith('.json')]
 
 def detect_imbalance(stats_list, age_threshold = 15, min_frac = 0.3, client_dominance = 0.9):
     # Filteting out the invalid datasets
