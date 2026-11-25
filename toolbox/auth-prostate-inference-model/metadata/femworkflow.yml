@@ -57,27 +57,9 @@ inputs:
       - bundle_id: prostate-prediction
         bundle_input_name: clinical_template
 
-  - id: t2w_series_uid
-    type: string
-    doc: |
-      SeriesInstanceUID of the T2W series. MR sequence role can't be
-      auto-detected from DICOM tags, so the submitter must declare it.
-    required: true
-    hidden: false
-    scope: global
-    targets:
-      - bundle_id: prostate-prediction
-        bundle_input_name: t2w_series_uid
-
-  - id: adc_series_uid
-    type: string
-    doc: SeriesInstanceUID of the ADC series (same reasoning as t2w_series_uid).
-    required: true
-    hidden: false
-    scope: global
-    targets:
-      - bundle_id: prostate-prediction
-        bundle_input_name: adc_series_uid
+  # t2w_series_uid / adc_series_uid removed: the T2W and ADC series are
+  # auto-detected from acquisition geometry, so the submitter no longer provides
+  # the UIDs in a federated run.
 
   - id: user_vars_config
     type: File

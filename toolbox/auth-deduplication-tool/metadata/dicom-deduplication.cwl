@@ -11,12 +11,13 @@ doc: >
 
 requirements:
   - class: DockerRequirement
-    dockerPull: harbor.eucaim.cancerimage.eu/ingestion-tools/deduplication_tool:latest
+    dockerPull: harbor.eucaim.cancerimage.eu/ingestion-tools/deduplication_tool:1.0.0
   - class: ResourceRequirement
     coresMin: 4
     ramMin: 4096
 
-baseCommand: [python3, dedup_pipeline.py]
+# Exactly matches the Dockerfile ENTRYPOINT ["python3", "/home/eucaim/dedup_pipeline.py"].
+baseCommand: [python3, /home/eucaim/dedup_pipeline.py]
 
 inputs:
   dataset_dir:
@@ -27,7 +28,8 @@ inputs:
     hidden: false
     source: user
     inputBinding:
-      position: 1
+      prefix: --input
+      separate: true
 
   workers:
     type: int
@@ -79,14 +81,14 @@ inputs:
 
   output_json:
     type: string
-    doc: Name of the JSON deduplication report file to be produced.
+    doc: Filename of the JSON deduplication report. The tool receives the full output path (sandbox dir + this filename) via --output.
     required: true
     default: dedup_report.json
     hidden: false
     source: user
     inputBinding:
       position: 6
-      prefix: --cache-json
+      prefix: --output
       separate: true
       valueFrom: $(runtime.outdir)/$(self)
 
